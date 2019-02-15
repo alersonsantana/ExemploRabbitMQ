@@ -1,0 +1,2721 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Microsoft.Azure.CognitiveServices.Search.WebSearch</name>
+    </assembly>
+    <members>
+        <member name="T:Microsoft.Azure.CognitiveServices.Search.WebSearch.ApiKeyServiceClientCredentials">
+            <summary>
+            Allows authentication to the API using a basic apiKey mechanism
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.CognitiveServices.Search.WebSearch.ApiKeyServiceClientCredentials.#ctor(System.String)">
+            <summary>
+            Creates a new instance of the ApiKeyServiceClientCredentails class
+            </summary>
+            <param name="subscriptionKey">The subscription key to authenticate and authorize as</param>
+        </member>
+        <member name="M:Microsoft.Azure.CognitiveServices.Search.WebSearch.ApiKeyServiceClientCredentials.ProcessHttpRequestAsync(System.Net.Http.HttpRequestMessage,System.Threading.CancellationToken)">
+            <summary>
+            Add the Basic Authentication Header to each outgoing request
+            </summary>
+            <param name="request">The outgoing request</param>
+            <param name="cancellationToken">A token to cancel the operation</param>
+        </member>
+        <member name="T:Microsoft.Azure.CognitiveServices.Search.WebSearch.IWeb">
+            <summary>
+            Web operations.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.CognitiveServices.Search.WebSearch.IWeb.SearchWithHttpMessagesAsync(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Nullable{System.Int32},System.String,System.Nullable{System.Int32},System.String,System.String,System.Nullable{System.Int32},System.Collections.Generic.IList{System.String},System.Collections.Generic.IList{System.String},System.String,System.String,System.Nullable{System.Boolean},System.String,System.Collections.Generic.Dictionary{System.String,System.Collections.Generic.List{System.String}},System.Threading.CancellationToken)">
+            <summary>
+            The Web Search API lets you send a search query to Bing and get
+            back search results that include links to webpages, images, and
+            more.
+            </summary>
+            <param name='query'>
+            The user's search query term. The term may not be empty. The term
+            may contain Bing Advanced Operators. For example, to limit results
+            to a specific domain, use the site: operator.
+            </param>
+            <param name='acceptLanguage'>
+            A comma-delimited list of one or more languages to use for user
+            interface strings. The list is in decreasing order of preference.
+            For additional information, including expected format, see
+            [RFC2616](http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html).
+            This header and the setLang query parameter are mutually exclusive;
+            do not specify both. If you set this header, you must also specify
+            the cc query parameter. Bing will use the first supported language
+            it finds from the list, and combine that language with the cc
+            parameter value to determine the market to return results for. If
+            the list does not include a supported language, Bing will find the
+            closest language and market that supports the request, and may use
+            an aggregated or default market for the results instead of a
+            specified one. You should use this header and the cc query
+            parameter only if you specify multiple languages; otherwise, you
+            should use the mkt and setLang query parameters. A user interface
+            string is a string that's used as a label in a user interface.
+            There are very few user interface strings in the JSON response
+            objects. Any links in the response objects to Bing.com properties
+            will apply the specified language.
+            </param>
+            <param name='pragma'>
+            By default, Bing returns cached content, if available. To prevent
+            Bing from returning cached content, set the Pragma header to
+            no-cache (for example, Pragma: no-cache).
+            </param>
+            <param name='userAgent'>
+            The user agent originating the request. Bing uses the user agent to
+            provide mobile users with an optimized experience. Although
+            optional, you are strongly encouraged to always specify this
+            header. The user-agent should be the same string that any commonly
+            used browser would send. For information about user agents, see
+            [RFC 2616](http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html).
+            </param>
+            <param name='clientId'>
+            Bing uses this header to provide users with consistent behavior
+            across Bing API calls. Bing often flights new features and
+            improvements, and it uses the client ID as a key for assigning
+            traffic on different flights. If you do not use the same client ID
+            for a user across multiple requests, then Bing may assign the user
+            to multiple conflicting flights. Being assigned to multiple
+            conflicting flights can lead to an inconsistent user experience.
+            For example, if the second request has a different flight
+            assignment than the first, the experience may be unexpected. Also,
+            Bing can use the client ID to tailor web results to that client
+            ID’s search history, providing a richer experience for the user.
+            Bing also uses this header to help improve result rankings by
+            analyzing the activity generated by a client ID. The relevance
+            improvements help with better quality of results delivered by Bing
+            APIs and in turn enables higher click-through rates for the API
+            consumer. IMPORTANT: Although optional, you should consider this
+            header required. Persisting the client ID across multiple requests
+            for the same end user and device combination enables 1) the API
+            consumer to receive a consistent user experience, and 2) higher
+            click-through rates via better quality of results from the Bing
+            APIs. Each user that uses your application on the device must have
+            a unique, Bing generated client ID. If you do not include this
+            header in the request, Bing generates an ID and returns it in the
+            X-MSEdge-ClientID response header. The only time that you should
+            NOT include this header in a request is the first time the user
+            uses your app on that device. Use the client ID for each Bing API
+            request that your app makes for this user on the device. Persist
+            the client ID. To persist the ID in a browser app, use a persistent
+            HTTP cookie to ensure the ID is used across all sessions. Do not
+            use a session cookie. For other apps such as mobile apps, use the
+            device's persistent storage to persist the ID. The next time the
+            user uses your app on that device, get the client ID that you
+            persisted. Bing responses may or may not include this header. If
+            the response includes this header, capture the client ID and use it
+            for all subsequent Bing requests for the user on that device. If
+            you include the X-MSEdge-ClientID, you must not include cookies in
+            the request.
+            </param>
+            <param name='clientIp'>
+            The IPv4 or IPv6 address of the client device. The IP address is
+            used to discover the user's location. Bing uses the location
+            information to determine safe search behavior. Although optional,
+            you are encouraged to always specify this header and the
+            X-Search-Location header. Do not obfuscate the address (for
+            example, by changing the last octet to 0). Obfuscating the address
+            results in the location not being anywhere near the device's actual
+            location, which may result in Bing serving erroneous results.
+            </param>
+            <param name='location'>
+            A semicolon-delimited list of key/value pairs that describe the
+            client's geographical location. Bing uses the location information
+            to determine safe search behavior and to return relevant local
+            content. Specify the key/value pair as &lt;key&gt;:&lt;value&gt;.
+            The following are the keys that you use to specify the user's
+            location. lat (required): The latitude of the client's location, in
+            degrees. The latitude must be greater than or equal to -90.0 and
+            less than or equal to +90.0. Negative values indicate southern
+            latitudes and positive values indicate northern latitudes. long
+            (required): The longitude of the client's location, in degrees. The
+            longitude must be greater than or equal to -180.0 and less than or
+            equal to +180.0. Negative values indicate western longitudes and
+            positive values indicate eastern longitudes. re (required): The
+            radius, in meters, which specifies the horizontal accuracy of the
+            coordinates. Pass the value returned by the device's location
+            service. Typical values might be 22m for GPS/Wi-Fi, 380m for cell
+            tower triangulation, and 18,000m for reverse IP lookup. ts
+            (optional): The UTC UNIX timestamp of when the client was at the
+            location. (The UNIX timestamp is the number of seconds since
+            January 1, 1970.) head (optional): The client's relative heading or
+            direction of travel. Specify the direction of travel as degrees
+            from 0 through 360, counting clockwise relative to true north.
+            Specify this key only if the sp key is nonzero. sp (optional): The
+            horizontal velocity (speed), in meters per second, that the client
+            device is traveling. alt (optional): The altitude of the client
+            device, in meters. are (optional): The radius, in meters, that
+            specifies the vertical accuracy of the coordinates. Specify this
+            key only if you specify the alt key. Although many of the keys are
+            optional, the more information that you provide, the more accurate
+            the location results are. Although optional, you are encouraged to
+            always specify the user's geographical location. Providing the
+            location is especially important if the client's IP address does
+            not accurately reflect the user's physical location (for example,
+            if the client uses VPN). For optimal results, you should include
+            this header and the X-MSEdge-ClientIP header, but at a minimum, you
+            should include this header.
+            </param>
+            <param name='answerCount'>
+            The number of answers that you want the response to include. The
+            answers that Bing returns are based on ranking. For example, if
+            Bing returns webpages, images, videos, and relatedSearches for a
+            request and you set this parameter to two (2), the response
+            includes webpages and images.If you included the responseFilter
+            query parameter in the same request and set it to webpages and
+            news, the response would include only webpages.
+            </param>
+            <param name='countryCode'>
+            A 2-character country code of the country where the results come
+            from. This API supports only the United States market. If you
+            specify this query parameter, it must be set to us. If you set this
+            parameter, you must also specify the Accept-Language header. Bing
+            uses the first supported language it finds from the languages list,
+            and combine that language with the country code that you specify to
+            determine the market to return results for. If the languages list
+            does not include a supported language, Bing finds the closest
+            language and market that supports the request, or it may use an
+            aggregated or default market for the results instead of a specified
+            one. You should use this query parameter and the Accept-Language
+            query parameter only if you specify multiple languages; otherwise,
+            you should use the mkt and setLang query parameters. This parameter
+            and the mkt query parameter are mutually exclusive—do not specify
+            both.
+            </param>
+            <param name='count'>
+            The number of search results to return in the response. The default
+            is 10 and the maximum value is 50. The actual number delivered may
+            be less than requested.Use this parameter along with the offset
+            parameter to page results.For example, if your user interface
+            displays 10 search results per page, set count to 10 and offset to
+            0 to get the first page of results. For each subsequent page,
+            increment offset by 10 (for example, 0, 10, 20). It is possible for
+            multiple pages to include some overlap in results.
+            </param>
+            <param name='freshness'>
+            Filter search results by the following age values: Day—Return
+            webpages that Bing discovered within the last 24 hours. Week—Return
+            webpages that Bing discovered within the last 7 days. Month—Return
+            webpages that discovered within the last 30 days. This filter
+            applies only to webpage results and not to the other results such
+            as news and images. Possible values include: 'Day', 'Week', 'Month'
+            </param>
+            <param name='market'>
+            The market where the results come from. Typically, mkt is the
+            country where the user is making the request from. However, it
+            could be a different country if the user is not located in a
+            country where Bing delivers results. The market must be in the form
+            &lt;language code&gt;-&lt;country code&gt;. For example, en-US. The
+            string is case insensitive. If known, you are encouraged to always
+            specify the market. Specifying the market helps Bing route the
+            request and return an appropriate and optimal response. If you
+            specify a market that is not listed in Market Codes, Bing uses a
+            best fit market code based on an internal mapping that is subject
+            to change. This parameter and the cc query parameter are mutually
+            exclusive—do not specify both.
+            </param>
+            <param name='offset'>
+            The zero-based offset that indicates the number of search results
+            to skip before returning results. The default is 0. The offset
+            should be less than (totalEstimatedMatches - count). Use this
+            parameter along with the count parameter to page results. For
+            example, if your user interface displays 10 search results per
+            page, set count to 10 and offset to 0 to get the first page of
+            results. For each subsequent page, increment offset by 10 (for
+            example, 0, 10, 20). it is possible for multiple pages to include
+            some overlap in results.
+            </param>
+            <param name='promote'>
+            A comma-delimited list of answers that you want the response to
+            include regardless of their ranking. For example, if you set
+            answerCount) to two (2) so Bing returns the top two ranked answers,
+            but you also want the response to include news, you'd set promote
+            to news. If the top ranked answers are webpages, images, videos,
+            and relatedSearches, the response includes webpages and images
+            because news is not a ranked answer. But if you set promote to
+            video, Bing would promote the video answer into the response and
+            return webpages, images, and videos. The answers that you want to
+            promote do not count against the answerCount limit. For example, if
+            the ranked answers are news, images, and videos, and you set
+            answerCount to 1 and promote to news, the response contains news
+            and images. Or, if the ranked answers are videos, images, and news,
+            the response contains videos and news. Possible values are
+            Computation, Images, News, RelatedSearches, SpellSuggestions,
+            TimeZone, Videos, Webpages. Use only if you specify answerCount.
+            </param>
+            <param name='responseFilter'>
+            A comma-delimited list of answers to include in the response. If
+            you do not specify this parameter, the response includes all search
+            answers for which there's relevant data. Possible filter values are
+            Computation, Images, News, RelatedSearches, SpellSuggestions,
+            TimeZone, Videos, Webpages. Although you may use this filter to get
+            a single answer, you should instead use the answer-specific
+            endpoint in order to get richer results. For example, to receive
+            only images, send the request to one of the Image Search API
+            endpoints. The RelatedSearches and SpellSuggestions answers do not
+            support a separate endpoint like the Image Search API does (only
+            the Web Search API returns them). To include answers that would
+            otherwise be excluded because of ranking, see the promote query
+            parameter.
+            </param>
+            <param name='safeSearch'>
+            A filter used to filter adult content. Off: Return webpages with
+            adult text, images, or videos. Moderate: Return webpages with adult
+            text, but not adult images or videos. Strict: Do not return
+            webpages with adult text, images, or videos. The default is
+            Moderate. If the request comes from a market that Bing's adult
+            policy requires that safeSearch is set to Strict, Bing ignores the
+            safeSearch value and uses Strict. If you use the site: query
+            operator, there is the chance that the response may contain adult
+            content regardless of what the safeSearch query parameter is set
+            to. Use site: only if you are aware of the content on the site and
+            your scenario supports the possibility of adult content. Possible
+            values include: 'Off', 'Moderate', 'Strict'
+            </param>
+            <param name='setLang'>
+            The language to use for user interface strings. Specify the
+            language using the ISO 639-1 2-letter language code. For example,
+            the language code for English is EN. The default is EN (English).
+            Although optional, you should always specify the language.
+            Typically, you set setLang to the same language specified by mkt
+            unless the user wants the user interface strings displayed in a
+            different language. This parameter and the Accept-Language header
+            are mutually exclusive; do not specify both. A user interface
+            string is a string that's used as a label in a user interface.
+            There are few user interface strings in the JSON response objects.
+            Also, any links to Bing.com properties in the response objects
+            apply the specified language.
+            </param>
+            <param name='textDecorations'>
+            A Boolean value that determines whether display strings should
+            contain decoration markers such as hit highlighting characters. If
+            true, the strings may include markers. The default is false. To
+            specify whether to use Unicode characters or HTML tags as the
+            markers, see the textFormat query parameter.
+            </param>
+            <param name='textFormat'>
+            The type of markers to use for text decorations (see the
+            textDecorations query parameter). Possible values are Raw—Use
+            Unicode characters to mark content that needs special formatting.
+            The Unicode characters are in the range E000 through E019. For
+            example, Bing uses E000 and E001 to mark the beginning and end of
+            query terms for hit highlighting. HTML—Use HTML tags to mark
+            content that needs special formatting. For example, use &lt;b&gt;
+            tags to highlight query terms in display strings. The default is
+            Raw. For display strings that contain escapable HTML characters
+            such as &lt;, &gt;, and &amp;, if textFormat is set to HTML, Bing
+            escapes the characters as appropriate (for example, &lt; is escaped
+            to &amp;lt;). Possible values include: 'Raw', 'Html'
+            </param>
+            <param name='customHeaders'>
+            The headers that will be added to request.
+            </param>
+            <param name='cancellationToken'>
+            The cancellation token.
+            </param>
+            <exception cref="T:Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.ErrorResponseException">
+            Thrown when the operation returned an invalid status code
+            </exception>
+            <exception cref="T:Microsoft.Rest.SerializationException">
+            Thrown when unable to deserialize the response
+            </exception>
+            <exception cref="T:Microsoft.Rest.ValidationException">
+            Thrown when a required parameter is null
+            </exception>
+        </member>
+        <member name="T:Microsoft.Azure.CognitiveServices.Search.WebSearch.IWebSearchClient">
+            <summary>
+            The Web Search API lets you send a search query to Bing and get back
+            search results that include links to webpages, images, and more.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.CognitiveServices.Search.WebSearch.IWebSearchClient.SerializationSettings">
+            <summary>
+            The base URI of the service.
+            </summary>
+            <summary>
+            Gets or sets json serialization settings.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.CognitiveServices.Search.WebSearch.IWebSearchClient.DeserializationSettings">
+            <summary>
+            Gets or sets json deserialization settings.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.CognitiveServices.Search.WebSearch.IWebSearchClient.Endpoint">
+            <summary>
+            Supported Cognitive Services endpoints (protocol and hostname, for
+            example: "https://westus.api.cognitive.microsoft.com",
+            "https://api.cognitive.microsoft.com").
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.CognitiveServices.Search.WebSearch.IWebSearchClient.Credentials">
+            <summary>
+            Subscription credentials which uniquely identify client
+            subscription.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.CognitiveServices.Search.WebSearch.IWebSearchClient.Web">
+            <summary>
+            Gets the IWeb.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.Answer.#ctor">
+            <summary>
+            Initializes a new instance of the Answer class.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.Answer.#ctor(System.String,System.String,System.Collections.Generic.IList{Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.Query})">
+            <summary>
+            Initializes a new instance of the Answer class.
+            </summary>
+            <param name="id">A String identifier.</param>
+            <param name="webSearchUrl">The URL To Bing's search result for this
+            item.</param>
+        </member>
+        <member name="P:Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.Answer.FollowUpQueries">
+            <summary>
+            </summary>
+        </member>
+        <member name="T:Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.AnswerType">
+            <summary>
+            Defines values for AnswerType.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.Article.#ctor">
+            <summary>
+            Initializes a new instance of the Article class.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.Article.#ctor(System.String,System.String,System.String,System.String,Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.ImageObject,System.String,System.String,System.String,System.Collections.Generic.IList{Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.Thing},System.String,System.Nullable{System.Int32})">
+            <summary>
+            Initializes a new instance of the Article class.
+            </summary>
+            <param name="id">A String identifier.</param>
+            <param name="webSearchUrl">The URL To Bing's search result for this
+            item.</param>
+            <param name="name">The name of the thing represented by this
+            object.</param>
+            <param name="url">The URL to get more information about the thing
+            represented by this object.</param>
+            <param name="description">A short description of the item.</param>
+            <param name="bingId">An ID that uniquely identifies this
+            item.</param>
+            <param name="thumbnailUrl">The URL to a thumbnail of the
+            item.</param>
+            <param name="provider">The source of the creative work.</param>
+            <param name="wordCount">The number of words in the text of the
+            Article.</param>
+        </member>
+        <member name="P:Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.Article.WordCount">
+            <summary>
+            Gets the number of words in the text of the Article.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.Computation">
+            <summary>
+            Defines an expression and its answer
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.Computation.#ctor">
+            <summary>
+            Initializes a new instance of the Computation class.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.Computation.#ctor(System.String,System.String,System.String,System.String,System.Collections.Generic.IList{Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.Query})">
+            <summary>
+            Initializes a new instance of the Computation class.
+            </summary>
+            <param name="expression">The math or conversion expression. If the
+            query contains a request to convert units of measure (for example,
+            meters to feet), this field contains the from units and value
+            contains the to units. If the query contains a mathematical
+            expression such as 2+2, this field contains the expression and
+            value contains the answer. Note that mathematical expressions may
+            be normalized. For example, if the query was sqrt(4^2+8^2), the
+            normalized expression may be sqrt((4^2)+(8^2)). If the user's query
+            is a math question and the textDecorations query parameter is set
+            to true, the expression string may include formatting markers. For
+            example, if the user's query is log(2), the normalized expression
+            includes the subscript markers. For more information, see Hit
+            Highlighting.</param>
+            <param name="value">The expression's answer.</param>
+            <param name="id">A String identifier.</param>
+            <param name="webSearchUrl">The URL To Bing's search result for this
+            item.</param>
+        </member>
+        <member name="P:Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.Computation.Expression">
+            <summary>
+            Gets or sets the math or conversion expression. If the query
+            contains a request to convert units of measure (for example, meters
+            to feet), this field contains the from units and value contains the
+            to units. If the query contains a mathematical expression such as
+            2+2, this field contains the expression and value contains the
+            answer. Note that mathematical expressions may be normalized. For
+            example, if the query was sqrt(4^2+8^2), the normalized expression
+            may be sqrt((4^2)+(8^2)). If the user's query is a math question
+            and the textDecorations query parameter is set to true, the
+            expression string may include formatting markers. For example, if
+            the user's query is log(2), the normalized expression includes the
+            subscript markers. For more information, see Hit Highlighting.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.Computation.Value">
+            <summary>
+            Gets or sets the expression's answer.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.Computation.Validate">
+            <summary>
+            Validate the object.
+            </summary>
+            <exception cref="T:Microsoft.Rest.ValidationException">
+            Thrown if validation fails
+            </exception>
+        </member>
+        <member name="M:Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.CreativeWork.#ctor">
+            <summary>
+            Initializes a new instance of the CreativeWork class.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.CreativeWork.#ctor(System.String,System.String,System.String,System.String,Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.ImageObject,System.String,System.String,System.String,System.Collections.Generic.IList{Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.Thing},System.String)">
+            <summary>
+            Initializes a new instance of the CreativeWork class.
+            </summary>
+            <param name="id">A String identifier.</param>
+            <param name="webSearchUrl">The URL To Bing's search result for this
+            item.</param>
+            <param name="name">The name of the thing represented by this
+            object.</param>
+            <param name="url">The URL to get more information about the thing
+            represented by this object.</param>
+            <param name="description">A short description of the item.</param>
+            <param name="bingId">An ID that uniquely identifies this
+            item.</param>
+            <param name="thumbnailUrl">The URL to a thumbnail of the
+            item.</param>
+            <param name="provider">The source of the creative work.</param>
+        </member>
+        <member name="P:Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.CreativeWork.ThumbnailUrl">
+            <summary>
+            Gets the URL to a thumbnail of the item.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.CreativeWork.Provider">
+            <summary>
+            Gets the source of the creative work.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.CreativeWork.Text">
+            <summary>
+            </summary>
+        </member>
+        <member name="T:Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.Error">
+            <summary>
+            Defines the error that occurred.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.Error.#ctor">
+            <summary>
+            Initializes a new instance of the Error class.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.Error.#ctor(System.String,System.String,System.String,System.String,System.String,System.String)">
+            <summary>
+            Initializes a new instance of the Error class.
+            </summary>
+            <param name="code">The error code that identifies the category of
+            error. Possible values include: 'None', 'ServerError',
+            'InvalidRequest', 'RateLimitExceeded', 'InvalidAuthorization',
+            'InsufficientAuthorization'</param>
+            <param name="message">A description of the error.</param>
+            <param name="subCode">The error code that further helps to identify
+            the error. Possible values include: 'UnexpectedError',
+            'ResourceError', 'NotImplemented', 'ParameterMissing',
+            'ParameterInvalidValue', 'HttpNotAllowed', 'Blocked',
+            'AuthorizationMissing', 'AuthorizationRedundancy',
+            'AuthorizationDisabled', 'AuthorizationExpired'</param>
+            <param name="moreDetails">A description that provides additional
+            information about the error.</param>
+            <param name="parameter">The parameter in the request that caused
+            the error.</param>
+            <param name="value">The parameter's value in the request that was
+            not valid.</param>
+        </member>
+        <member name="P:Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.Error.Code">
+            <summary>
+            Gets or sets the error code that identifies the category of error.
+            Possible values include: 'None', 'ServerError', 'InvalidRequest',
+            'RateLimitExceeded', 'InvalidAuthorization',
+            'InsufficientAuthorization'
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.Error.SubCode">
+            <summary>
+            Gets the error code that further helps to identify the error.
+            Possible values include: 'UnexpectedError', 'ResourceError',
+            'NotImplemented', 'ParameterMissing', 'ParameterInvalidValue',
+            'HttpNotAllowed', 'Blocked', 'AuthorizationMissing',
+            'AuthorizationRedundancy', 'AuthorizationDisabled',
+            'AuthorizationExpired'
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.Error.Message">
+            <summary>
+            Gets or sets a description of the error.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.Error.MoreDetails">
+            <summary>
+            Gets a description that provides additional information about the
+            error.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.Error.Parameter">
+            <summary>
+            Gets the parameter in the request that caused the error.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.Error.Value">
+            <summary>
+            Gets the parameter's value in the request that was not valid.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.Error.Validate">
+            <summary>
+            Validate the object.
+            </summary>
+            <exception cref="T:Microsoft.Rest.ValidationException">
+            Thrown if validation fails
+            </exception>
+        </member>
+        <member name="T:Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.ErrorCode">
+            <summary>
+            Defines values for ErrorCode.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.ErrorResponse">
+            <summary>
+            The top-level response that represents a failed request.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.ErrorResponse.#ctor">
+            <summary>
+            Initializes a new instance of the ErrorResponse class.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.ErrorResponse.#ctor(System.Collections.Generic.IList{Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.Error},System.String,System.String)">
+            <summary>
+            Initializes a new instance of the ErrorResponse class.
+            </summary>
+            <param name="errors">A list of errors that describe the reasons why
+            the request failed.</param>
+            <param name="id">A String identifier.</param>
+            <param name="webSearchUrl">The URL To Bing's search result for this
+            item.</param>
+        </member>
+        <member name="P:Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.ErrorResponse.Errors">
+            <summary>
+            Gets or sets a list of errors that describe the reasons why the
+            request failed.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.ErrorResponse.Validate">
+            <summary>
+            Validate the object.
+            </summary>
+            <exception cref="T:Microsoft.Rest.ValidationException">
+            Thrown if validation fails
+            </exception>
+        </member>
+        <member name="T:Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.ErrorResponseException">
+            <summary>
+            Exception thrown for an invalid response with ErrorResponse
+            information.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.ErrorResponseException.Request">
+            <summary>
+            Gets information about the associated HTTP request.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.ErrorResponseException.Response">
+            <summary>
+            Gets information about the associated HTTP response.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.ErrorResponseException.Body">
+            <summary>
+            Gets or sets the body object.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.ErrorResponseException.#ctor">
+            <summary>
+            Initializes a new instance of the ErrorResponseException class.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.ErrorResponseException.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the ErrorResponseException class.
+            </summary>
+            <param name="message">The exception message.</param>
+        </member>
+        <member name="M:Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.ErrorResponseException.#ctor(System.String,System.Exception)">
+            <summary>
+            Initializes a new instance of the ErrorResponseException class.
+            </summary>
+            <param name="message">The exception message.</param>
+            <param name="innerException">Inner exception.</param>
+        </member>
+        <member name="T:Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.ErrorSubCode">
+            <summary>
+            Defines values for ErrorSubCode.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.Freshness">
+            <summary>
+            Defines values for Freshness.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.Identifiable">
+            <summary>
+            Defines the identity of a resource.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.Identifiable.#ctor">
+            <summary>
+            Initializes a new instance of the Identifiable class.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.Identifiable.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the Identifiable class.
+            </summary>
+            <param name="id">A String identifier.</param>
+        </member>
+        <member name="P:Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.Identifiable.Id">
+            <summary>
+            Gets a String identifier.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.ImageObject">
+            <summary>
+            Defines an image
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.ImageObject.#ctor">
+            <summary>
+            Initializes a new instance of the ImageObject class.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.ImageObject.#ctor(System.String,System.String,System.String,System.String,Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.ImageObject,System.String,System.String,System.String,System.Collections.Generic.IList{Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.Thing},System.String,System.String,System.String,System.Nullable{System.Int32},System.Nullable{System.Int32},Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.ImageObject)">
+            <summary>
+            Initializes a new instance of the ImageObject class.
+            </summary>
+            <param name="id">A String identifier.</param>
+            <param name="webSearchUrl">The URL To Bing's search result for this
+            item.</param>
+            <param name="name">The name of the thing represented by this
+            object.</param>
+            <param name="url">The URL to get more information about the thing
+            represented by this object.</param>
+            <param name="description">A short description of the item.</param>
+            <param name="bingId">An ID that uniquely identifies this
+            item.</param>
+            <param name="thumbnailUrl">The URL to a thumbnail of the
+            item.</param>
+            <param name="provider">The source of the creative work.</param>
+            <param name="contentUrl">Original URL to retrieve the source (file)
+            for the media object (e.g the source URL for the image).</param>
+            <param name="hostPageUrl">URL of the page that hosts the media
+            object.</param>
+            <param name="width">The width of the source media object, in
+            pixels.</param>
+            <param name="height">The height of the source media object, in
+            pixels.</param>
+            <param name="thumbnail">The URL to a thumbnail of the image</param>
+        </member>
+        <member name="P:Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.ImageObject.Thumbnail">
+            <summary>
+            Gets the URL to a thumbnail of the image
+            </summary>
+        </member>
+        <member name="T:Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.Images">
+            <summary>
+            Defines an image answer
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.Images.#ctor">
+            <summary>
+            Initializes a new instance of the Images class.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.Images.#ctor(System.Collections.Generic.IList{Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.ImageObject},System.String,System.String,System.Collections.Generic.IList{Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.Query},Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.QueryContext,System.Nullable{System.Int64},System.Nullable{System.Boolean},System.Nullable{System.Int32},System.Collections.Generic.IList{Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.Query},System.Collections.Generic.IList{Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.Query},System.Collections.Generic.IList{Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.Query})">
+            <summary>
+            Initializes a new instance of the Images class.
+            </summary>
+            <param name="value">A list of image objects that are relevant to
+            the query. If there are no results, the List is empty.</param>
+            <param name="id">A String identifier.</param>
+            <param name="webSearchUrl">The URL To Bing's search result for this
+            item.</param>
+            <param name="totalEstimatedMatches">The estimated number of
+            webpages that are relevant to the query. Use this number along with
+            the count and offset query parameters to page the results.</param>
+        </member>
+        <member name="P:Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.Images.NextOffset">
+            <summary>
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.Images.Value">
+            <summary>
+            Gets or sets a list of image objects that are relevant to the
+            query. If there are no results, the List is empty.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.Images.QueryExpansions">
+            <summary>
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.Images.SimilarTerms">
+            <summary>
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.Images.RelatedSearches">
+            <summary>
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.Images.Validate">
+            <summary>
+            Validate the object.
+            </summary>
+            <exception cref="T:Microsoft.Rest.ValidationException">
+            Thrown if validation fails
+            </exception>
+        </member>
+        <member name="M:Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.Intangible.#ctor">
+            <summary>
+            Initializes a new instance of the Intangible class.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.Intangible.#ctor(System.String,System.String,System.String,System.String,Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.ImageObject,System.String,System.String)">
+            <summary>
+            Initializes a new instance of the Intangible class.
+            </summary>
+            <param name="id">A String identifier.</param>
+            <param name="webSearchUrl">The URL To Bing's search result for this
+            item.</param>
+            <param name="name">The name of the thing represented by this
+            object.</param>
+            <param name="url">The URL to get more information about the thing
+            represented by this object.</param>
+            <param name="description">A short description of the item.</param>
+            <param name="bingId">An ID that uniquely identifies this
+            item.</param>
+        </member>
+        <member name="M:Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.MediaObject.#ctor">
+            <summary>
+            Initializes a new instance of the MediaObject class.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.MediaObject.#ctor(System.String,System.String,System.String,System.String,Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.ImageObject,System.String,System.String,System.String,System.Collections.Generic.IList{Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.Thing},System.String,System.String,System.String,System.Nullable{System.Int32},System.Nullable{System.Int32})">
+            <summary>
+            Initializes a new instance of the MediaObject class.
+            </summary>
+            <param name="id">A String identifier.</param>
+            <param name="webSearchUrl">The URL To Bing's search result for this
+            item.</param>
+            <param name="name">The name of the thing represented by this
+            object.</param>
+            <param name="url">The URL to get more information about the thing
+            represented by this object.</param>
+            <param name="description">A short description of the item.</param>
+            <param name="bingId">An ID that uniquely identifies this
+            item.</param>
+            <param name="thumbnailUrl">The URL to a thumbnail of the
+            item.</param>
+            <param name="provider">The source of the creative work.</param>
+            <param name="contentUrl">Original URL to retrieve the source (file)
+            for the media object (e.g the source URL for the image).</param>
+            <param name="hostPageUrl">URL of the page that hosts the media
+            object.</param>
+            <param name="width">The width of the source media object, in
+            pixels.</param>
+            <param name="height">The height of the source media object, in
+            pixels.</param>
+        </member>
+        <member name="P:Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.MediaObject.ContentUrl">
+            <summary>
+            Gets original URL to retrieve the source (file) for the media
+            object (e.g the source URL for the image).
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.MediaObject.HostPageUrl">
+            <summary>
+            Gets URL of the page that hosts the media object.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.MediaObject.Width">
+            <summary>
+            Gets the width of the source media object, in pixels.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.MediaObject.Height">
+            <summary>
+            Gets the height of the source media object, in pixels.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.News">
+            <summary>
+            Defines a news answer.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.News.#ctor">
+            <summary>
+            Initializes a new instance of the News class.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.News.#ctor(System.Collections.Generic.IList{Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.NewsArticle},System.String,System.String,System.Collections.Generic.IList{Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.Query},Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.QueryContext,System.Nullable{System.Int64},System.Nullable{System.Boolean},System.String)">
+            <summary>
+            Initializes a new instance of the News class.
+            </summary>
+            <param name="value">An array of NewsArticle objects that contain
+            information about news articles that are relevant to the query. If
+            there are no results to return for the request, the array is
+            empty.</param>
+            <param name="id">A String identifier.</param>
+            <param name="webSearchUrl">The URL To Bing's search result for this
+            item.</param>
+            <param name="totalEstimatedMatches">The estimated number of
+            webpages that are relevant to the query. Use this number along with
+            the count and offset query parameters to page the results.</param>
+        </member>
+        <member name="P:Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.News.Value">
+            <summary>
+            Gets or sets an array of NewsArticle objects that contain
+            information about news articles that are relevant to the query. If
+            there are no results to return for the request, the array is empty.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.News.Location">
+            <summary>
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.News.Validate">
+            <summary>
+            Validate the object.
+            </summary>
+            <exception cref="T:Microsoft.Rest.ValidationException">
+            Thrown if validation fails
+            </exception>
+        </member>
+        <member name="T:Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.NewsArticle">
+            <summary>
+            Defines a news article.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.NewsArticle.#ctor">
+            <summary>
+            Initializes a new instance of the NewsArticle class.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.NewsArticle.#ctor(System.String,System.String,System.String,System.String,Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.ImageObject,System.String,System.String,System.String,System.Collections.Generic.IList{Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.Thing},System.String,System.Nullable{System.Int32})">
+            <summary>
+            Initializes a new instance of the NewsArticle class.
+            </summary>
+            <param name="id">A String identifier.</param>
+            <param name="webSearchUrl">The URL To Bing's search result for this
+            item.</param>
+            <param name="name">The name of the thing represented by this
+            object.</param>
+            <param name="url">The URL to get more information about the thing
+            represented by this object.</param>
+            <param name="description">A short description of the item.</param>
+            <param name="bingId">An ID that uniquely identifies this
+            item.</param>
+            <param name="thumbnailUrl">The URL to a thumbnail of the
+            item.</param>
+            <param name="provider">The source of the creative work.</param>
+            <param name="wordCount">The number of words in the text of the
+            Article.</param>
+        </member>
+        <member name="T:Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.Places">
+            <summary>
+            Defines a local entity answer.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.Places.#ctor">
+            <summary>
+            Initializes a new instance of the Places class.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.Places.#ctor(System.Collections.Generic.IList{Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.Thing},System.String,System.String,System.Collections.Generic.IList{Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.Query},Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.QueryContext,System.Nullable{System.Int64},System.Nullable{System.Boolean})">
+            <summary>
+            Initializes a new instance of the Places class.
+            </summary>
+            <param name="value">A list of local entities, such as restaurants
+            or hotels.</param>
+            <param name="id">A String identifier.</param>
+            <param name="webSearchUrl">The URL To Bing's search result for this
+            item.</param>
+            <param name="totalEstimatedMatches">The estimated number of
+            webpages that are relevant to the query. Use this number along with
+            the count and offset query parameters to page the results.</param>
+        </member>
+        <member name="P:Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.Places.Value">
+            <summary>
+            Gets or sets a list of local entities, such as restaurants or
+            hotels.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.Places.Validate">
+            <summary>
+            Validate the object.
+            </summary>
+            <exception cref="T:Microsoft.Rest.ValidationException">
+            Thrown if validation fails
+            </exception>
+        </member>
+        <member name="T:Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.Query">
+            <summary>
+            Defines a search query.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.Query.#ctor">
+            <summary>
+            Initializes a new instance of the Query class.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.Query.#ctor(System.String,System.String,System.String,System.String,Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.ImageObject)">
+            <summary>
+            Initializes a new instance of the Query class.
+            </summary>
+            <param name="text">The query string. Use this string as the query
+            term in a new search request.</param>
+            <param name="displayText">The display version of the query term.
+            This version of the query term may contain special characters that
+            highlight the search term found in the query string. The string
+            contains the highlighting characters only if the query enabled hit
+            highlighting</param>
+            <param name="webSearchUrl">The URL that takes the user to the Bing
+            search results page for the query.Only related search results
+            include this field.</param>
+        </member>
+        <member name="P:Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.Query.Text">
+            <summary>
+            Gets or sets the query string. Use this string as the query term in
+            a new search request.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.Query.DisplayText">
+            <summary>
+            Gets the display version of the query term. This version of the
+            query term may contain special characters that highlight the search
+            term found in the query string. The string contains the
+            highlighting characters only if the query enabled hit highlighting
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.Query.WebSearchUrl">
+            <summary>
+            Gets the URL that takes the user to the Bing search results page
+            for the query.Only related search results include this field.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.Query.SearchLink">
+            <summary>
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.Query.Thumbnail">
+            <summary>
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.Query.Validate">
+            <summary>
+            Validate the object.
+            </summary>
+            <exception cref="T:Microsoft.Rest.ValidationException">
+            Thrown if validation fails
+            </exception>
+        </member>
+        <member name="T:Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.QueryContext">
+            <summary>
+            Defines the query context that Bing used for the request.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.QueryContext.#ctor">
+            <summary>
+            Initializes a new instance of the QueryContext class.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.QueryContext.#ctor(System.String,System.String,System.String,System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{System.Boolean})">
+            <summary>
+            Initializes a new instance of the QueryContext class.
+            </summary>
+            <param name="originalQuery">The query string as specified in the
+            request.</param>
+            <param name="alteredQuery">The query string used by Bing to perform
+            the query. Bing uses the altered query string if the original query
+            string contained spelling mistakes. For example, if the query
+            string is "saling downwind", the altered query string will be
+            "sailing downwind". This field is included only if the original
+            query string contains a spelling mistake.</param>
+            <param name="alterationOverrideQuery">The query string to use to
+            force Bing to use the original string. For example, if the query
+            string is "saling downwind", the override query string will be
+            "+saling downwind". Remember to encode the query string which
+            results in "%2Bsaling+downwind". This field is included only if the
+            original query string contains a spelling mistake.</param>
+            <param name="adultIntent">A Boolean value that indicates whether
+            the specified query has adult intent. The value is true if the
+            query has adult intent; otherwise, false.</param>
+            <param name="askUserForLocation">A Boolean value that indicates
+            whether Bing requires the user's location to provide accurate
+            results. If you specified the user's location by using the
+            X-MSEdge-ClientIP and X-Search-Location headers, you can ignore
+            this field. For location aware queries, such as "today's weather"
+            or "restaurants near me" that need the user's location to provide
+            accurate results, this field is set to true. For location aware
+            queries that include the location (for example, "Seattle weather"),
+            this field is set to false. This field is also set to false for
+            queries that are not location aware, such as "best
+            sellers".</param>
+        </member>
+        <member name="P:Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.QueryContext.OriginalQuery">
+            <summary>
+            Gets or sets the query string as specified in the request.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.QueryContext.AlteredQuery">
+            <summary>
+            Gets the query string used by Bing to perform the query. Bing uses
+            the altered query string if the original query string contained
+            spelling mistakes. For example, if the query string is "saling
+            downwind", the altered query string will be "sailing downwind".
+            This field is included only if the original query string contains a
+            spelling mistake.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.QueryContext.AlterationOverrideQuery">
+            <summary>
+            Gets the query string to use to force Bing to use the original
+            string. For example, if the query string is "saling downwind", the
+            override query string will be "+saling downwind". Remember to
+            encode the query string which results in "%2Bsaling+downwind". This
+            field is included only if the original query string contains a
+            spelling mistake.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.QueryContext.AdultIntent">
+            <summary>
+            Gets a Boolean value that indicates whether the specified query has
+            adult intent. The value is true if the query has adult intent;
+            otherwise, false.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.QueryContext.AskUserForLocation">
+            <summary>
+            Gets a Boolean value that indicates whether Bing requires the
+            user's location to provide accurate results. If you specified the
+            user's location by using the X-MSEdge-ClientIP and
+            X-Search-Location headers, you can ignore this field. For location
+            aware queries, such as "today's weather" or "restaurants near me"
+            that need the user's location to provide accurate results, this
+            field is set to true. For location aware queries that include the
+            location (for example, "Seattle weather"), this field is set to
+            false. This field is also set to false for queries that are not
+            location aware, such as "best sellers".
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.QueryContext.IsTransactional">
+            <summary>
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.QueryContext.Validate">
+            <summary>
+            Validate the object.
+            </summary>
+            <exception cref="T:Microsoft.Rest.ValidationException">
+            Thrown if validation fails
+            </exception>
+        </member>
+        <member name="T:Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.RankingRankingGroup">
+            <summary>
+            Defines a search results group, such as mainline.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.RankingRankingGroup.#ctor">
+            <summary>
+            Initializes a new instance of the RankingRankingGroup class.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.RankingRankingGroup.#ctor(System.Collections.Generic.IList{Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.RankingRankingItem})">
+            <summary>
+            Initializes a new instance of the RankingRankingGroup class.
+            </summary>
+            <param name="items">A list of search result items to display in the
+            group.</param>
+        </member>
+        <member name="P:Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.RankingRankingGroup.Items">
+            <summary>
+            Gets or sets a list of search result items to display in the group.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.RankingRankingGroup.Validate">
+            <summary>
+            Validate the object.
+            </summary>
+            <exception cref="T:Microsoft.Rest.ValidationException">
+            Thrown if validation fails
+            </exception>
+        </member>
+        <member name="T:Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.RankingRankingItem">
+            <summary>
+            Defines a search result item to display
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.RankingRankingItem.#ctor">
+            <summary>
+            Initializes a new instance of the RankingRankingItem class.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.RankingRankingItem.#ctor(System.String,System.Nullable{System.Int32},Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.Identifiable,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{System.Int32})">
+            <summary>
+            Initializes a new instance of the RankingRankingItem class.
+            </summary>
+            <param name="answerType">The answer that contains the item to
+            display. Use the type to find the answer in the SearchResponse
+            object. The type is the name of a SearchResponse field. Possible
+            values include: 'WebPages', 'Images', 'SpellSuggestions', 'News',
+            'RelatedSearches', 'Videos', 'Computation', 'TimeZone'</param>
+            <param name="resultIndex">A zero-based index of the item in the
+            answer.If the item does not include this field, display all items
+            in the answer. For example, display all news articles in the News
+            answer.</param>
+            <param name="value">The ID that identifies either an answer to
+            display or an item of an answer to display. If the ID identifies an
+            answer, display all items of the answer.</param>
+        </member>
+        <member name="P:Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.RankingRankingItem.AnswerType">
+            <summary>
+            Gets or sets the answer that contains the item to display. Use the
+            type to find the answer in the SearchResponse object. The type is
+            the name of a SearchResponse field. Possible values include:
+            'WebPages', 'Images', 'SpellSuggestions', 'News',
+            'RelatedSearches', 'Videos', 'Computation', 'TimeZone'
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.RankingRankingItem.ResultIndex">
+            <summary>
+            Gets a zero-based index of the item in the answer.If the item does
+            not include this field, display all items in the answer. For
+            example, display all news articles in the News answer.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.RankingRankingItem.Value">
+            <summary>
+            Gets the ID that identifies either an answer to display or an item
+            of an answer to display. If the ID identifies an answer, display
+            all items of the answer.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.RankingRankingItem.HtmlIndex">
+            <summary>
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.RankingRankingItem.TextualIndex">
+            <summary>
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.RankingRankingItem.ScreenshotIndex">
+            <summary>
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.RankingRankingItem.Validate">
+            <summary>
+            Validate the object.
+            </summary>
+            <exception cref="T:Microsoft.Rest.ValidationException">
+            Thrown if validation fails
+            </exception>
+        </member>
+        <member name="T:Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.RankingRankingResponse">
+            <summary>
+            Defines where on the search results page content should be placed and
+            in what order.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.RankingRankingResponse.#ctor">
+            <summary>
+            Initializes a new instance of the RankingRankingResponse class.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.RankingRankingResponse.#ctor(Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.RankingRankingGroup,Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.RankingRankingGroup,Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.RankingRankingGroup)">
+            <summary>
+            Initializes a new instance of the RankingRankingResponse class.
+            </summary>
+            <param name="pole">The search results that should be afforded the
+            most visible treatment (for example, displayed above the mainline
+            and sidebar).</param>
+            <param name="mainline">The search results to display in the
+            mainline.</param>
+            <param name="sidebar">The search results to display in the
+            sidebar.</param>
+        </member>
+        <member name="P:Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.RankingRankingResponse.Pole">
+            <summary>
+            Gets the search results that should be afforded the most visible
+            treatment (for example, displayed above the mainline and sidebar).
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.RankingRankingResponse.Mainline">
+            <summary>
+            Gets the search results to display in the mainline.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.RankingRankingResponse.Sidebar">
+            <summary>
+            Gets the search results to display in the sidebar.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.RankingRankingResponse.Validate">
+            <summary>
+            Validate the object.
+            </summary>
+            <exception cref="T:Microsoft.Rest.ValidationException">
+            Thrown if validation fails
+            </exception>
+        </member>
+        <member name="T:Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.RelatedSearchesRelatedSearchAnswer">
+            <summary>
+            Defines a list of related queries made by others.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.RelatedSearchesRelatedSearchAnswer.#ctor">
+            <summary>
+            Initializes a new instance of the
+            RelatedSearchesRelatedSearchAnswer class.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.RelatedSearchesRelatedSearchAnswer.#ctor(System.Collections.Generic.IList{Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.Query},System.String,System.String,System.Collections.Generic.IList{Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.Query},Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.QueryContext,System.Nullable{System.Int64},System.Nullable{System.Boolean})">
+            <summary>
+            Initializes a new instance of the
+            RelatedSearchesRelatedSearchAnswer class.
+            </summary>
+            <param name="value">A list of related queries that were made by
+            others.</param>
+            <param name="id">A String identifier.</param>
+            <param name="webSearchUrl">The URL To Bing's search result for this
+            item.</param>
+            <param name="totalEstimatedMatches">The estimated number of
+            webpages that are relevant to the query. Use this number along with
+            the count and offset query parameters to page the results.</param>
+        </member>
+        <member name="P:Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.RelatedSearchesRelatedSearchAnswer.Value">
+            <summary>
+            Gets or sets a list of related queries that were made by others.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.RelatedSearchesRelatedSearchAnswer.Validate">
+            <summary>
+            Validate the object.
+            </summary>
+            <exception cref="T:Microsoft.Rest.ValidationException">
+            Thrown if validation fails
+            </exception>
+        </member>
+        <member name="T:Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.Response">
+            <summary>
+            Defines a response. All schemas that could be returned at the root of a
+            response should inherit from this
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.Response.#ctor">
+            <summary>
+            Initializes a new instance of the Response class.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.Response.#ctor(System.String,System.String)">
+            <summary>
+            Initializes a new instance of the Response class.
+            </summary>
+            <param name="id">A String identifier.</param>
+            <param name="webSearchUrl">The URL To Bing's search result for this
+            item.</param>
+        </member>
+        <member name="P:Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.Response.WebSearchUrl">
+            <summary>
+            Gets the URL To Bing's search result for this item.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.ResponseBase.#ctor">
+            <summary>
+            Initializes a new instance of the ResponseBase class.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.SafeSearch">
+            <summary>
+            Defines values for SafeSearch.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.SearchResponse">
+            <summary>
+            Defines the top-level object that the response includes when the
+            request succeeds.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.SearchResponse.#ctor">
+            <summary>
+            Initializes a new instance of the SearchResponse class.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.SearchResponse.#ctor(System.String,System.String,Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.QueryContext,Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.WebWebAnswer,Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.Images,Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.News,Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.RelatedSearchesRelatedSearchAnswer,Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.SpellSuggestions,Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.TimeZone,Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.Videos,Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.Computation,Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.RankingRankingResponse)">
+            <summary>
+            Initializes a new instance of the SearchResponse class.
+            </summary>
+            <param name="id">A String identifier.</param>
+            <param name="webSearchUrl">The URL To Bing's search result for this
+            item.</param>
+            <param name="queryContext">An object that contains the query string
+            that Bing used for the request. This object contains the query
+            string as entered by the user. It may also contain an altered query
+            string that Bing used for the query if the query string contained a
+            spelling mistake.</param>
+            <param name="webPages">A list of webpages that are relevant to the
+            search query.</param>
+            <param name="images">A list of images that are relevant to the
+            search query.</param>
+            <param name="news">A list of news articles that are relevant to the
+            search query.</param>
+            <param name="relatedSearches">A list of related queries made by
+            others.</param>
+            <param name="spellSuggestions">The query string that likely
+            represents the user's intent.</param>
+            <param name="timeZone">The date and time of one or more geographic
+            locations.</param>
+            <param name="videos">A list of videos that are relevant to the
+            search query.</param>
+            <param name="computation">The answer to a math expression or units
+            conversion expression.</param>
+            <param name="rankingResponse">The order that Bing suggests that you
+            display the search results in.</param>
+        </member>
+        <member name="P:Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.SearchResponse.QueryContext">
+            <summary>
+            Gets an object that contains the query string that Bing used for
+            the request. This object contains the query string as entered by
+            the user. It may also contain an altered query string that Bing
+            used for the query if the query string contained a spelling
+            mistake.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.SearchResponse.WebPages">
+            <summary>
+            Gets a list of webpages that are relevant to the search query.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.SearchResponse.Images">
+            <summary>
+            Gets a list of images that are relevant to the search query.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.SearchResponse.News">
+            <summary>
+            Gets a list of news articles that are relevant to the search query.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.SearchResponse.RelatedSearches">
+            <summary>
+            Gets a list of related queries made by others.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.SearchResponse.SpellSuggestions">
+            <summary>
+            Gets the query string that likely represents the user's intent.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.SearchResponse.TimeZone">
+            <summary>
+            Gets the date and time of one or more geographic locations.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.SearchResponse.Videos">
+            <summary>
+            Gets a list of videos that are relevant to the search query.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.SearchResponse.Computation">
+            <summary>
+            Gets the answer to a math expression or units conversion
+            expression.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.SearchResponse.RankingResponse">
+            <summary>
+            Gets the order that Bing suggests that you display the search
+            results in.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.SearchResponse.Validate">
+            <summary>
+            Validate the object.
+            </summary>
+            <exception cref="T:Microsoft.Rest.ValidationException">
+            Thrown if validation fails
+            </exception>
+        </member>
+        <member name="M:Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.SearchResultsAnswer.#ctor">
+            <summary>
+            Initializes a new instance of the SearchResultsAnswer class.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.SearchResultsAnswer.#ctor(System.String,System.String,System.Collections.Generic.IList{Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.Query},Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.QueryContext,System.Nullable{System.Int64},System.Nullable{System.Boolean})">
+            <summary>
+            Initializes a new instance of the SearchResultsAnswer class.
+            </summary>
+            <param name="id">A String identifier.</param>
+            <param name="webSearchUrl">The URL To Bing's search result for this
+            item.</param>
+            <param name="totalEstimatedMatches">The estimated number of
+            webpages that are relevant to the query. Use this number along with
+            the count and offset query parameters to page the results.</param>
+        </member>
+        <member name="P:Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.SearchResultsAnswer.QueryContext">
+            <summary>
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.SearchResultsAnswer.TotalEstimatedMatches">
+            <summary>
+            Gets the estimated number of webpages that are relevant to the
+            query. Use this number along with the count and offset query
+            parameters to page the results.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.SearchResultsAnswer.IsFamilyFriendly">
+            <summary>
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.SearchResultsAnswer.Validate">
+            <summary>
+            Validate the object.
+            </summary>
+            <exception cref="T:Microsoft.Rest.ValidationException">
+            Thrown if validation fails
+            </exception>
+        </member>
+        <member name="T:Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.SpellSuggestions">
+            <summary>
+            Defines a suggested query string that likely represents the user's
+            intent. The search results include this response if Bing determines
+            that the user may have intended to search for something different. For
+            example, if the user searches for alon brown, Bing may determine that
+            the user likely intended to search for Alton Brown instead (based on
+            past searches by others of Alon Brown).
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.SpellSuggestions.#ctor">
+            <summary>
+            Initializes a new instance of the SpellSuggestions class.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.SpellSuggestions.#ctor(System.Collections.Generic.IList{Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.Query},System.String,System.String,System.Collections.Generic.IList{Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.Query},Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.QueryContext,System.Nullable{System.Int64},System.Nullable{System.Boolean})">
+            <summary>
+            Initializes a new instance of the SpellSuggestions class.
+            </summary>
+            <param name="value">A list of suggested query strings that may
+            represent the user's intention. The list contains only one Query
+            object.</param>
+            <param name="id">A String identifier.</param>
+            <param name="webSearchUrl">The URL To Bing's search result for this
+            item.</param>
+            <param name="totalEstimatedMatches">The estimated number of
+            webpages that are relevant to the query. Use this number along with
+            the count and offset query parameters to page the results.</param>
+        </member>
+        <member name="P:Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.SpellSuggestions.Value">
+            <summary>
+            Gets or sets a list of suggested query strings that may represent
+            the user's intention. The list contains only one Query object.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.SpellSuggestions.Validate">
+            <summary>
+            Validate the object.
+            </summary>
+            <exception cref="T:Microsoft.Rest.ValidationException">
+            Thrown if validation fails
+            </exception>
+        </member>
+        <member name="M:Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.StructuredValue.#ctor">
+            <summary>
+            Initializes a new instance of the StructuredValue class.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.StructuredValue.#ctor(System.String,System.String,System.String,System.String,Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.ImageObject,System.String,System.String)">
+            <summary>
+            Initializes a new instance of the StructuredValue class.
+            </summary>
+            <param name="id">A String identifier.</param>
+            <param name="webSearchUrl">The URL To Bing's search result for this
+            item.</param>
+            <param name="name">The name of the thing represented by this
+            object.</param>
+            <param name="url">The URL to get more information about the thing
+            represented by this object.</param>
+            <param name="description">A short description of the item.</param>
+            <param name="bingId">An ID that uniquely identifies this
+            item.</param>
+        </member>
+        <member name="T:Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.TextFormat">
+            <summary>
+            Defines values for TextFormat.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.Thing.#ctor">
+            <summary>
+            Initializes a new instance of the Thing class.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.Thing.#ctor(System.String,System.String,System.String,System.String,Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.ImageObject,System.String,System.String)">
+            <summary>
+            Initializes a new instance of the Thing class.
+            </summary>
+            <param name="id">A String identifier.</param>
+            <param name="webSearchUrl">The URL To Bing's search result for this
+            item.</param>
+            <param name="name">The name of the thing represented by this
+            object.</param>
+            <param name="url">The URL to get more information about the thing
+            represented by this object.</param>
+            <param name="description">A short description of the item.</param>
+            <param name="bingId">An ID that uniquely identifies this
+            item.</param>
+        </member>
+        <member name="P:Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.Thing.Name">
+            <summary>
+            Gets the name of the thing represented by this object.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.Thing.Url">
+            <summary>
+            Gets the URL to get more information about the thing represented by
+            this object.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.Thing.Image">
+            <summary>
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.Thing.Description">
+            <summary>
+            Gets a short description of the item.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.Thing.BingId">
+            <summary>
+            Gets an ID that uniquely identifies this item.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.TimeZone">
+            <summary>
+            Defines the data and time of one or more geographic locations.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.TimeZone.#ctor">
+            <summary>
+            Initializes a new instance of the TimeZone class.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.TimeZone.#ctor(Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.TimeZoneTimeZoneInformation,System.String,System.String,System.Collections.Generic.IList{Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.Query},Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.QueryContext,System.Nullable{System.Int64},System.Nullable{System.Boolean},System.Collections.Generic.IList{Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.TimeZoneTimeZoneInformation})">
+            <summary>
+            Initializes a new instance of the TimeZone class.
+            </summary>
+            <param name="primaryCityTime">The data and time, in UTC, of the
+            geographic location specified in the query. If the query specified
+            a specific geographic location (for example, a city), this object
+            contains the name of the geographic location and the current date
+            and time of the location, in UTC. If the query specified a general
+            geographic location, such as a state or country, this object
+            contains the date and time of the primary city or state found in
+            the specified state or country. If the location contains additional
+            time zones, the otherCityTimes field contains the data and time of
+            cities or states located in the other time zones.</param>
+            <param name="id">A String identifier.</param>
+            <param name="webSearchUrl">The URL To Bing's search result for this
+            item.</param>
+            <param name="totalEstimatedMatches">The estimated number of
+            webpages that are relevant to the query. Use this number along with
+            the count and offset query parameters to page the results.</param>
+            <param name="otherCityTimes">A list of dates and times of nearby
+            time zones.</param>
+        </member>
+        <member name="P:Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.TimeZone.PrimaryCityTime">
+            <summary>
+            Gets or sets the data and time, in UTC, of the geographic location
+            specified in the query. If the query specified a specific
+            geographic location (for example, a city), this object contains the
+            name of the geographic location and the current date and time of
+            the location, in UTC. If the query specified a general geographic
+            location, such as a state or country, this object contains the date
+            and time of the primary city or state found in the specified state
+            or country. If the location contains additional time zones, the
+            otherCityTimes field contains the data and time of cities or states
+            located in the other time zones.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.TimeZone.OtherCityTimes">
+            <summary>
+            Gets a list of dates and times of nearby time zones.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.TimeZone.Validate">
+            <summary>
+            Validate the object.
+            </summary>
+            <exception cref="T:Microsoft.Rest.ValidationException">
+            Thrown if validation fails
+            </exception>
+        </member>
+        <member name="T:Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.TimeZoneTimeZoneInformation">
+            <summary>
+            Defines a date and time for a geographical location.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.TimeZoneTimeZoneInformation.#ctor">
+            <summary>
+            Initializes a new instance of the TimeZoneTimeZoneInformation
+            class.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.TimeZoneTimeZoneInformation.#ctor(System.String,System.String,System.String)">
+            <summary>
+            Initializes a new instance of the TimeZoneTimeZoneInformation
+            class.
+            </summary>
+            <param name="location">The name of the geographical location.For
+            example, County; City; City, State; City, State, Country; or Time
+            Zone.</param>
+            <param name="time">The data and time specified in the form,
+            YYYY-MM-DDThh;mm:ss.ssssssZ.</param>
+            <param name="utcOffset">The offset from UTC. For example,
+            UTC-7.</param>
+        </member>
+        <member name="P:Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.TimeZoneTimeZoneInformation.Location">
+            <summary>
+            Gets or sets the name of the geographical location.For example,
+            County; City; City, State; City, State, Country; or Time Zone.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.TimeZoneTimeZoneInformation.Time">
+            <summary>
+            Gets or sets the data and time specified in the form,
+            YYYY-MM-DDThh;mm:ss.ssssssZ.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.TimeZoneTimeZoneInformation.UtcOffset">
+            <summary>
+            Gets or sets the offset from UTC. For example, UTC-7.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.TimeZoneTimeZoneInformation.Validate">
+            <summary>
+            Validate the object.
+            </summary>
+            <exception cref="T:Microsoft.Rest.ValidationException">
+            Thrown if validation fails
+            </exception>
+        </member>
+        <member name="T:Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.VideoObject">
+            <summary>
+            Defines a video object that is relevant to the query.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.VideoObject.#ctor">
+            <summary>
+            Initializes a new instance of the VideoObject class.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.VideoObject.#ctor(System.String,System.String,System.String,System.String,Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.ImageObject,System.String,System.String,System.String,System.Collections.Generic.IList{Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.Thing},System.String,System.String,System.String,System.Nullable{System.Int32},System.Nullable{System.Int32},System.String,System.String,System.String,System.Nullable{System.Boolean},System.Nullable{System.Int32},Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.ImageObject,System.String,System.Nullable{System.Boolean},System.Nullable{System.Boolean})">
+            <summary>
+            Initializes a new instance of the VideoObject class.
+            </summary>
+            <param name="id">A String identifier.</param>
+            <param name="webSearchUrl">The URL To Bing's search result for this
+            item.</param>
+            <param name="name">The name of the thing represented by this
+            object.</param>
+            <param name="url">The URL to get more information about the thing
+            represented by this object.</param>
+            <param name="description">A short description of the item.</param>
+            <param name="bingId">An ID that uniquely identifies this
+            item.</param>
+            <param name="thumbnailUrl">The URL to a thumbnail of the
+            item.</param>
+            <param name="provider">The source of the creative work.</param>
+            <param name="contentUrl">Original URL to retrieve the source (file)
+            for the media object (e.g the source URL for the image).</param>
+            <param name="hostPageUrl">URL of the page that hosts the media
+            object.</param>
+            <param name="width">The width of the source media object, in
+            pixels.</param>
+            <param name="height">The height of the source media object, in
+            pixels.</param>
+        </member>
+        <member name="P:Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.VideoObject.MotionThumbnailUrl">
+            <summary>
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.VideoObject.MotionThumbnailId">
+            <summary>
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.VideoObject.EmbedHtml">
+            <summary>
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.VideoObject.AllowHttpsEmbed">
+            <summary>
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.VideoObject.ViewCount">
+            <summary>
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.VideoObject.Thumbnail">
+            <summary>
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.VideoObject.VideoId">
+            <summary>
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.VideoObject.AllowMobileEmbed">
+            <summary>
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.VideoObject.IsSuperfresh">
+            <summary>
+            </summary>
+        </member>
+        <member name="T:Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.Videos">
+            <summary>
+            Defines a video answer.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.Videos.#ctor">
+            <summary>
+            Initializes a new instance of the Videos class.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.Videos.#ctor(System.Collections.Generic.IList{Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.VideoObject},System.String,System.String,System.Collections.Generic.IList{Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.Query},Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.QueryContext,System.Nullable{System.Int64},System.Nullable{System.Boolean},System.Nullable{System.Int32},System.Collections.Generic.IList{Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.Query},System.Collections.Generic.IList{Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.Query})">
+            <summary>
+            Initializes a new instance of the Videos class.
+            </summary>
+            <param name="value">A list of video objects that are relevant to
+            the query.</param>
+            <param name="id">A String identifier.</param>
+            <param name="webSearchUrl">The URL To Bing's search result for this
+            item.</param>
+            <param name="totalEstimatedMatches">The estimated number of
+            webpages that are relevant to the query. Use this number along with
+            the count and offset query parameters to page the results.</param>
+        </member>
+        <member name="P:Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.Videos.Value">
+            <summary>
+            Gets or sets a list of video objects that are relevant to the
+            query.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.Videos.NextOffset">
+            <summary>
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.Videos.QueryExpansions">
+            <summary>
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.Videos.RelatedSearches">
+            <summary>
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.Videos.Validate">
+            <summary>
+            Validate the object.
+            </summary>
+            <exception cref="T:Microsoft.Rest.ValidationException">
+            Thrown if validation fails
+            </exception>
+        </member>
+        <member name="T:Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.WebMetaTag">
+            <summary>
+            Defines a webpage's metadata.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.WebMetaTag.#ctor">
+            <summary>
+            Initializes a new instance of the WebMetaTag class.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.WebMetaTag.#ctor(System.String,System.String)">
+            <summary>
+            Initializes a new instance of the WebMetaTag class.
+            </summary>
+            <param name="name">The metadata.</param>
+            <param name="content">The name of the metadata.</param>
+        </member>
+        <member name="P:Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.WebMetaTag.Name">
+            <summary>
+            Gets the metadata.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.WebMetaTag.Content">
+            <summary>
+            Gets the name of the metadata.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.WebPage">
+            <summary>
+            Defines a webpage that is relevant to the query.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.WebPage.#ctor">
+            <summary>
+            Initializes a new instance of the WebPage class.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.WebPage.#ctor(System.String,System.String,System.String,System.String,Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.ImageObject,System.String,System.String,System.String,System.Collections.Generic.IList{Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.Thing},System.String,System.String,System.String,System.Collections.Generic.IList{Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.WebPage},System.String,System.Collections.Generic.IList{Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.WebMetaTag},Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.ImageObject)">
+            <summary>
+            Initializes a new instance of the WebPage class.
+            </summary>
+            <param name="id">A String identifier.</param>
+            <param name="webSearchUrl">The URL To Bing's search result for this
+            item.</param>
+            <param name="name">The name of the thing represented by this
+            object.</param>
+            <param name="url">The URL to get more information about the thing
+            represented by this object.</param>
+            <param name="description">A short description of the item.</param>
+            <param name="bingId">An ID that uniquely identifies this
+            item.</param>
+            <param name="thumbnailUrl">The URL to a thumbnail of the
+            item.</param>
+            <param name="provider">The source of the creative work.</param>
+            <param name="displayUrl">The display URL of the webpage. The URL is
+            meant for display purposes only and is not well formed.</param>
+            <param name="snippet">A snippet of text from the webpage that
+            describes its contents.</param>
+            <param name="deepLinks">A list of links to related content that
+            Bing found in the website that contains this webpage. The Webpage
+            object in this context includes only the name, url, urlPingSuffix,
+            and snippet fields.</param>
+            <param name="dateLastCrawled">The last time that Bing crawled the
+            webpage. The date is in the form, YYYY-MM-DDTHH:MM:SS. For example,
+            2015-04-13T05:23:39.</param>
+            <param name="searchTags">A list of search tags that the webpage
+            owner specified on the webpage. The API returns only indexed search
+            tags. The name field of the MetaTag object contains the indexed
+            search tag. Search tags begin with search.* (for example,
+            search.assetId). The content field contains the tag's
+            value.</param>
+        </member>
+        <member name="P:Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.WebPage.DisplayUrl">
+            <summary>
+            Gets the display URL of the webpage. The URL is meant for display
+            purposes only and is not well formed.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.WebPage.Snippet">
+            <summary>
+            Gets a snippet of text from the webpage that describes its
+            contents.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.WebPage.DeepLinks">
+            <summary>
+            Gets a list of links to related content that Bing found in the
+            website that contains this webpage. The Webpage object in this
+            context includes only the name, url, urlPingSuffix, and snippet
+            fields.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.WebPage.DateLastCrawled">
+            <summary>
+            Gets the last time that Bing crawled the webpage. The date is in
+            the form, YYYY-MM-DDTHH:MM:SS. For example, 2015-04-13T05:23:39.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.WebPage.SearchTags">
+            <summary>
+            Gets a list of search tags that the webpage owner specified on the
+            webpage. The API returns only indexed search tags. The name field
+            of the MetaTag object contains the indexed search tag. Search tags
+            begin with search.* (for example, search.assetId). The content
+            field contains the tag's value.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.WebPage.PrimaryImageOfPage">
+            <summary>
+            </summary>
+        </member>
+        <member name="T:Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.WebWebAnswer">
+            <summary>
+            Defines a list of relevant webpage links.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.WebWebAnswer.#ctor">
+            <summary>
+            Initializes a new instance of the WebWebAnswer class.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.WebWebAnswer.#ctor(System.Collections.Generic.IList{Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.WebPage},System.String,System.String,System.Collections.Generic.IList{Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.Query},Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.QueryContext,System.Nullable{System.Int64},System.Nullable{System.Boolean},System.Nullable{System.Boolean})">
+            <summary>
+            Initializes a new instance of the WebWebAnswer class.
+            </summary>
+            <param name="value">A list of webpages that are relevant to the
+            query.</param>
+            <param name="id">A String identifier.</param>
+            <param name="webSearchUrl">The URL To Bing's search result for this
+            item.</param>
+            <param name="totalEstimatedMatches">The estimated number of
+            webpages that are relevant to the query. Use this number along with
+            the count and offset query parameters to page the results.</param>
+            <param name="someResultsRemoved">A Boolean value that indicates
+            whether the response excluded some results from the answer. If Bing
+            excluded some results, the value is true.</param>
+        </member>
+        <member name="P:Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.WebWebAnswer.Value">
+            <summary>
+            Gets or sets a list of webpages that are relevant to the query.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.WebWebAnswer.SomeResultsRemoved">
+            <summary>
+            Gets a Boolean value that indicates whether the response excluded
+            some results from the answer. If Bing excluded some results, the
+            value is true.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.WebWebAnswer.Validate">
+            <summary>
+            Validate the object.
+            </summary>
+            <exception cref="T:Microsoft.Rest.ValidationException">
+            Thrown if validation fails
+            </exception>
+        </member>
+        <member name="M:Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.WebWebGrouping.#ctor">
+            <summary>
+            Initializes a new instance of the WebWebGrouping class.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.WebWebGrouping.#ctor(System.Collections.Generic.IList{Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.WebPage})">
+            <summary>
+            Initializes a new instance of the WebWebGrouping class.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.WebWebGrouping.WebPages">
+            <summary>
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.WebWebGrouping.Validate">
+            <summary>
+            Validate the object.
+            </summary>
+            <exception cref="T:Microsoft.Rest.ValidationException">
+            Thrown if validation fails
+            </exception>
+        </member>
+        <member name="T:Microsoft.Azure.CognitiveServices.Search.WebSearch.Web">
+            <summary>
+            Web operations.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.CognitiveServices.Search.WebSearch.Web.#ctor(Microsoft.Azure.CognitiveServices.Search.WebSearch.WebSearchClient)">
+            <summary>
+            Initializes a new instance of the Web class.
+            </summary>
+            <param name='client'>
+            Reference to the service client.
+            </param>
+            <exception cref="T:System.ArgumentNullException">
+            Thrown when a required parameter is null
+            </exception>
+        </member>
+        <member name="P:Microsoft.Azure.CognitiveServices.Search.WebSearch.Web.Client">
+            <summary>
+            Gets a reference to the WebSearchClient
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.CognitiveServices.Search.WebSearch.Web.SearchWithHttpMessagesAsync(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Nullable{System.Int32},System.String,System.Nullable{System.Int32},System.String,System.String,System.Nullable{System.Int32},System.Collections.Generic.IList{System.String},System.Collections.Generic.IList{System.String},System.String,System.String,System.Nullable{System.Boolean},System.String,System.Collections.Generic.Dictionary{System.String,System.Collections.Generic.List{System.String}},System.Threading.CancellationToken)">
+            <summary>
+            The Web Search API lets you send a search query to Bing and get back search
+            results that include links to webpages, images, and more.
+            </summary>
+            <param name='query'>
+            The user's search query term. The term may not be empty. The term may
+            contain Bing Advanced Operators. For example, to limit results to a
+            specific domain, use the site: operator.
+            </param>
+            <param name='acceptLanguage'>
+            A comma-delimited list of one or more languages to use for user interface
+            strings. The list is in decreasing order of preference. For additional
+            information, including expected format, see
+            [RFC2616](http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html). This
+            header and the setLang query parameter are mutually exclusive; do not
+            specify both. If you set this header, you must also specify the cc query
+            parameter. Bing will use the first supported language it finds from the
+            list, and combine that language with the cc parameter value to determine
+            the market to return results for. If the list does not include a supported
+            language, Bing will find the closest language and market that supports the
+            request, and may use an aggregated or default market for the results
+            instead of a specified one. You should use this header and the cc query
+            parameter only if you specify multiple languages; otherwise, you should use
+            the mkt and setLang query parameters. A user interface string is a string
+            that's used as a label in a user interface. There are very few user
+            interface strings in the JSON response objects. Any links in the response
+            objects to Bing.com properties will apply the specified language.
+            </param>
+            <param name='pragma'>
+            By default, Bing returns cached content, if available. To prevent Bing from
+            returning cached content, set the Pragma header to no-cache (for example,
+            Pragma: no-cache).
+            </param>
+            <param name='userAgent'>
+            The user agent originating the request. Bing uses the user agent to provide
+            mobile users with an optimized experience. Although optional, you are
+            strongly encouraged to always specify this header. The user-agent should be
+            the same string that any commonly used browser would send. For information
+            about user agents, see [RFC
+            2616](http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html).
+            </param>
+            <param name='clientId'>
+            Bing uses this header to provide users with consistent behavior across Bing
+            API calls. Bing often flights new features and improvements, and it uses
+            the client ID as a key for assigning traffic on different flights. If you
+            do not use the same client ID for a user across multiple requests, then
+            Bing may assign the user to multiple conflicting flights. Being assigned to
+            multiple conflicting flights can lead to an inconsistent user experience.
+            For example, if the second request has a different flight assignment than
+            the first, the experience may be unexpected. Also, Bing can use the client
+            ID to tailor web results to that client ID’s search history, providing a
+            richer experience for the user. Bing also uses this header to help improve
+            result rankings by analyzing the activity generated by a client ID. The
+            relevance improvements help with better quality of results delivered by
+            Bing APIs and in turn enables higher click-through rates for the API
+            consumer. IMPORTANT: Although optional, you should consider this header
+            required. Persisting the client ID across multiple requests for the same
+            end user and device combination enables 1) the API consumer to receive a
+            consistent user experience, and 2) higher click-through rates via better
+            quality of results from the Bing APIs. Each user that uses your application
+            on the device must have a unique, Bing generated client ID. If you do not
+            include this header in the request, Bing generates an ID and returns it in
+            the X-MSEdge-ClientID response header. The only time that you should NOT
+            include this header in a request is the first time the user uses your app
+            on that device. Use the client ID for each Bing API request that your app
+            makes for this user on the device. Persist the client ID. To persist the ID
+            in a browser app, use a persistent HTTP cookie to ensure the ID is used
+            across all sessions. Do not use a session cookie. For other apps such as
+            mobile apps, use the device's persistent storage to persist the ID. The
+            next time the user uses your app on that device, get the client ID that you
+            persisted. Bing responses may or may not include this header. If the
+            response includes this header, capture the client ID and use it for all
+            subsequent Bing requests for the user on that device. If you include the
+            X-MSEdge-ClientID, you must not include cookies in the request.
+            </param>
+            <param name='clientIp'>
+            The IPv4 or IPv6 address of the client device. The IP address is used to
+            discover the user's location. Bing uses the location information to
+            determine safe search behavior. Although optional, you are encouraged to
+            always specify this header and the X-Search-Location header. Do not
+            obfuscate the address (for example, by changing the last octet to 0).
+            Obfuscating the address results in the location not being anywhere near the
+            device's actual location, which may result in Bing serving erroneous
+            results.
+            </param>
+            <param name='location'>
+            A semicolon-delimited list of key/value pairs that describe the client's
+            geographical location. Bing uses the location information to determine safe
+            search behavior and to return relevant local content. Specify the key/value
+            pair as &lt;key&gt;:&lt;value&gt;. The following are the keys that you use
+            to specify the user's location. lat (required): The latitude of the
+            client's location, in degrees. The latitude must be greater than or equal
+            to -90.0 and less than or equal to +90.0. Negative values indicate southern
+            latitudes and positive values indicate northern latitudes. long (required):
+            The longitude of the client's location, in degrees. The longitude must be
+            greater than or equal to -180.0 and less than or equal to +180.0. Negative
+            values indicate western longitudes and positive values indicate eastern
+            longitudes. re (required): The radius, in meters, which specifies the
+            horizontal accuracy of the coordinates. Pass the value returned by the
+            device's location service. Typical values might be 22m for GPS/Wi-Fi, 380m
+            for cell tower triangulation, and 18,000m for reverse IP lookup. ts
+            (optional): The UTC UNIX timestamp of when the client was at the location.
+            (The UNIX timestamp is the number of seconds since January 1, 1970.) head
+            (optional): The client's relative heading or direction of travel. Specify
+            the direction of travel as degrees from 0 through 360, counting clockwise
+            relative to true north. Specify this key only if the sp key is nonzero. sp
+            (optional): The horizontal velocity (speed), in meters per second, that the
+            client device is traveling. alt (optional): The altitude of the client
+            device, in meters. are (optional): The radius, in meters, that specifies
+            the vertical accuracy of the coordinates. Specify this key only if you
+            specify the alt key. Although many of the keys are optional, the more
+            information that you provide, the more accurate the location results are.
+            Although optional, you are encouraged to always specify the user's
+            geographical location. Providing the location is especially important if
+            the client's IP address does not accurately reflect the user's physical
+            location (for example, if the client uses VPN). For optimal results, you
+            should include this header and the X-MSEdge-ClientIP header, but at a
+            minimum, you should include this header.
+            </param>
+            <param name='answerCount'>
+            The number of answers that you want the response to include. The answers
+            that Bing returns are based on ranking. For example, if Bing returns
+            webpages, images, videos, and relatedSearches for a request and you set
+            this parameter to two (2), the response includes webpages and images.If you
+            included the responseFilter query parameter in the same request and set it
+            to webpages and news, the response would include only webpages.
+            </param>
+            <param name='countryCode'>
+            A 2-character country code of the country where the results come from. This
+            API supports only the United States market. If you specify this query
+            parameter, it must be set to us. If you set this parameter, you must also
+            specify the Accept-Language header. Bing uses the first supported language
+            it finds from the languages list, and combine that language with the
+            country code that you specify to determine the market to return results
+            for. If the languages list does not include a supported language, Bing
+            finds the closest language and market that supports the request, or it may
+            use an aggregated or default market for the results instead of a specified
+            one. You should use this query parameter and the Accept-Language query
+            parameter only if you specify multiple languages; otherwise, you should use
+            the mkt and setLang query parameters. This parameter and the mkt query
+            parameter are mutually exclusive—do not specify both.
+            </param>
+            <param name='count'>
+            The number of search results to return in the response. The default is 10
+            and the maximum value is 50. The actual number delivered may be less than
+            requested.Use this parameter along with the offset parameter to page
+            results.For example, if your user interface displays 10 search results per
+            page, set count to 10 and offset to 0 to get the first page of results. For
+            each subsequent page, increment offset by 10 (for example, 0, 10, 20). It
+            is possible for multiple pages to include some overlap in results.
+            </param>
+            <param name='freshness'>
+            Filter search results by the following age values: Day—Return webpages that
+            Bing discovered within the last 24 hours. Week—Return webpages that Bing
+            discovered within the last 7 days. Month—Return webpages that discovered
+            within the last 30 days. This filter applies only to webpage results and
+            not to the other results such as news and images. Possible values include:
+            'Day', 'Week', 'Month'
+            </param>
+            <param name='market'>
+            The market where the results come from. Typically, mkt is the country where
+            the user is making the request from. However, it could be a different
+            country if the user is not located in a country where Bing delivers
+            results. The market must be in the form &lt;language code&gt;-&lt;country
+            code&gt;. For example, en-US. The string is case insensitive. If known, you
+            are encouraged to always specify the market. Specifying the market helps
+            Bing route the request and return an appropriate and optimal response. If
+            you specify a market that is not listed in Market Codes, Bing uses a best
+            fit market code based on an internal mapping that is subject to change.
+            This parameter and the cc query parameter are mutually exclusive—do not
+            specify both.
+            </param>
+            <param name='offset'>
+            The zero-based offset that indicates the number of search results to skip
+            before returning results. The default is 0. The offset should be less than
+            (totalEstimatedMatches - count). Use this parameter along with the count
+            parameter to page results. For example, if your user interface displays 10
+            search results per page, set count to 10 and offset to 0 to get the first
+            page of results. For each subsequent page, increment offset by 10 (for
+            example, 0, 10, 20). it is possible for multiple pages to include some
+            overlap in results.
+            </param>
+            <param name='promote'>
+            A comma-delimited list of answers that you want the response to include
+            regardless of their ranking. For example, if you set answerCount) to two
+            (2) so Bing returns the top two ranked answers, but you also want the
+            response to include news, you'd set promote to news. If the top ranked
+            answers are webpages, images, videos, and relatedSearches, the response
+            includes webpages and images because news is not a ranked answer. But if
+            you set promote to video, Bing would promote the video answer into the
+            response and return webpages, images, and videos. The answers that you want
+            to promote do not count against the answerCount limit. For example, if the
+            ranked answers are news, images, and videos, and you set answerCount to 1
+            and promote to news, the response contains news and images. Or, if the
+            ranked answers are videos, images, and news, the response contains videos
+            and news. Possible values are Computation, Images, News, RelatedSearches,
+            SpellSuggestions, TimeZone, Videos, Webpages. Use only if you specify
+            answerCount.
+            </param>
+            <param name='responseFilter'>
+            A comma-delimited list of answers to include in the response. If you do not
+            specify this parameter, the response includes all search answers for which
+            there's relevant data. Possible filter values are Computation, Images,
+            News, RelatedSearches, SpellSuggestions, TimeZone, Videos, Webpages.
+            Although you may use this filter to get a single answer, you should instead
+            use the answer-specific endpoint in order to get richer results. For
+            example, to receive only images, send the request to one of the Image
+            Search API endpoints. The RelatedSearches and SpellSuggestions answers do
+            not support a separate endpoint like the Image Search API does (only the
+            Web Search API returns them). To include answers that would otherwise be
+            excluded because of ranking, see the promote query parameter.
+            </param>
+            <param name='safeSearch'>
+            A filter used to filter adult content. Off: Return webpages with adult
+            text, images, or videos. Moderate: Return webpages with adult text, but not
+            adult images or videos. Strict: Do not return webpages with adult text,
+            images, or videos. The default is Moderate. If the request comes from a
+            market that Bing's adult policy requires that safeSearch is set to Strict,
+            Bing ignores the safeSearch value and uses Strict. If you use the site:
+            query operator, there is the chance that the response may contain adult
+            content regardless of what the safeSearch query parameter is set to. Use
+            site: only if you are aware of the content on the site and your scenario
+            supports the possibility of adult content. Possible values include: 'Off',
+            'Moderate', 'Strict'
+            </param>
+            <param name='setLang'>
+            The language to use for user interface strings. Specify the language using
+            the ISO 639-1 2-letter language code. For example, the language code for
+            English is EN. The default is EN (English). Although optional, you should
+            always specify the language. Typically, you set setLang to the same
+            language specified by mkt unless the user wants the user interface strings
+            displayed in a different language. This parameter and the Accept-Language
+            header are mutually exclusive; do not specify both. A user interface string
+            is a string that's used as a label in a user interface. There are few user
+            interface strings in the JSON response objects. Also, any links to Bing.com
+            properties in the response objects apply the specified language.
+            </param>
+            <param name='textDecorations'>
+            A Boolean value that determines whether display strings should contain
+            decoration markers such as hit highlighting characters. If true, the
+            strings may include markers. The default is false. To specify whether to
+            use Unicode characters or HTML tags as the markers, see the textFormat
+            query parameter.
+            </param>
+            <param name='textFormat'>
+            The type of markers to use for text decorations (see the textDecorations
+            query parameter). Possible values are Raw—Use Unicode characters to mark
+            content that needs special formatting. The Unicode characters are in the
+            range E000 through E019. For example, Bing uses E000 and E001 to mark the
+            beginning and end of query terms for hit highlighting. HTML—Use HTML tags
+            to mark content that needs special formatting. For example, use &lt;b&gt;
+            tags to highlight query terms in display strings. The default is Raw. For
+            display strings that contain escapable HTML characters such as &lt;, &gt;,
+            and &amp;, if textFormat is set to HTML, Bing escapes the characters as
+            appropriate (for example, &lt; is escaped to &amp;lt;). Possible values
+            include: 'Raw', 'Html'
+            </param>
+            <param name='customHeaders'>
+            Headers that will be added to request.
+            </param>
+            <param name='cancellationToken'>
+            The cancellation token.
+            </param>
+            <exception cref="T:Microsoft.Azure.CognitiveServices.Search.WebSearch.Models.ErrorResponseException">
+            Thrown when the operation returned an invalid status code
+            </exception>
+            <exception cref="T:Microsoft.Rest.SerializationException">
+            Thrown when unable to deserialize the response
+            </exception>
+            <exception cref="T:Microsoft.Rest.ValidationException">
+            Thrown when a required parameter is null
+            </exception>
+            <exception cref="T:System.ArgumentNullException">
+            Thrown when a required parameter is null
+            </exception>
+            <return>
+            A response object containing the response body and response headers.
+            </return>
+        </member>
+        <member name="T:Microsoft.Azure.CognitiveServices.Search.WebSearch.WebExtensions">
+            <summary>
+            Extension methods for Web.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.CognitiveServices.Search.WebSearch.WebExtensions.SearchAsync(Microsoft.Azure.CognitiveServices.Search.WebSearch.IWeb,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Nullable{System.Int32},System.String,System.Nullable{System.Int32},System.String,System.String,System.Nullable{System.Int32},System.Collections.Generic.IList{System.String},System.Collections.Generic.IList{System.String},System.String,System.String,System.Nullable{System.Boolean},System.String,System.Threading.CancellationToken)">
+            <summary>
+            The Web Search API lets you send a search query to Bing and get back search
+            results that include links to webpages, images, and more.
+            </summary>
+            <param name='operations'>
+            The operations group for this extension method.
+            </param>
+            <param name='query'>
+            The user's search query term. The term may not be empty. The term may
+            contain Bing Advanced Operators. For example, to limit results to a
+            specific domain, use the site: operator.
+            </param>
+            <param name='acceptLanguage'>
+            A comma-delimited list of one or more languages to use for user interface
+            strings. The list is in decreasing order of preference. For additional
+            information, including expected format, see
+            [RFC2616](http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html). This
+            header and the setLang query parameter are mutually exclusive; do not
+            specify both. If you set this header, you must also specify the cc query
+            parameter. Bing will use the first supported language it finds from the
+            list, and combine that language with the cc parameter value to determine
+            the market to return results for. If the list does not include a supported
+            language, Bing will find the closest language and market that supports the
+            request, and may use an aggregated or default market for the results
+            instead of a specified one. You should use this header and the cc query
+            parameter only if you specify multiple languages; otherwise, you should use
+            the mkt and setLang query parameters. A user interface string is a string
+            that's used as a label in a user interface. There are very few user
+            interface strings in the JSON response objects. Any links in the response
+            objects to Bing.com properties will apply the specified language.
+            </param>
+            <param name='pragma'>
+            By default, Bing returns cached content, if available. To prevent Bing from
+            returning cached content, set the Pragma header to no-cache (for example,
+            Pragma: no-cache).
+            </param>
+            <param name='userAgent'>
+            The user agent originating the request. Bing uses the user agent to provide
+            mobile users with an optimized experience. Although optional, you are
+            strongly encouraged to always specify this header. The user-agent should be
+            the same string that any commonly used browser would send. For information
+            about user agents, see [RFC
+            2616](http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html).
+            </param>
+            <param name='clientId'>
+            Bing uses this header to provide users with consistent behavior across Bing
+            API calls. Bing often flights new features and improvements, and it uses
+            the client ID as a key for assigning traffic on different flights. If you
+            do not use the same client ID for a user across multiple requests, then
+            Bing may assign the user to multiple conflicting flights. Being assigned to
+            multiple conflicting flights can lead to an inconsistent user experience.
+            For example, if the second request has a different flight assignment than
+            the first, the experience may be unexpected. Also, Bing can use the client
+            ID to tailor web results to that client ID’s search history, providing a
+            richer experience for the user. Bing also uses this header to help improve
+            result rankings by analyzing the activity generated by a client ID. The
+            relevance improvements help with better quality of results delivered by
+            Bing APIs and in turn enables higher click-through rates for the API
+            consumer. IMPORTANT: Although optional, you should consider this header
+            required. Persisting the client ID across multiple requests for the same
+            end user and device combination enables 1) the API consumer to receive a
+            consistent user experience, and 2) higher click-through rates via better
+            quality of results from the Bing APIs. Each user that uses your application
+            on the device must have a unique, Bing generated client ID. If you do not
+            include this header in the request, Bing generates an ID and returns it in
+            the X-MSEdge-ClientID response header. The only time that you should NOT
+            include this header in a request is the first time the user uses your app
+            on that device. Use the client ID for each Bing API request that your app
+            makes for this user on the device. Persist the client ID. To persist the ID
+            in a browser app, use a persistent HTTP cookie to ensure the ID is used
+            across all sessions. Do not use a session cookie. For other apps such as
+            mobile apps, use the device's persistent storage to persist the ID. The
+            next time the user uses your app on that device, get the client ID that you
+            persisted. Bing responses may or may not include this header. If the
+            response includes this header, capture the client ID and use it for all
+            subsequent Bing requests for the user on that device. If you include the
+            X-MSEdge-ClientID, you must not include cookies in the request.
+            </param>
+            <param name='clientIp'>
+            The IPv4 or IPv6 address of the client device. The IP address is used to
+            discover the user's location. Bing uses the location information to
+            determine safe search behavior. Although optional, you are encouraged to
+            always specify this header and the X-Search-Location header. Do not
+            obfuscate the address (for example, by changing the last octet to 0).
+            Obfuscating the address results in the location not being anywhere near the
+            device's actual location, which may result in Bing serving erroneous
+            results.
+            </param>
+            <param name='location'>
+            A semicolon-delimited list of key/value pairs that describe the client's
+            geographical location. Bing uses the location information to determine safe
+            search behavior and to return relevant local content. Specify the key/value
+            pair as &lt;key&gt;:&lt;value&gt;. The following are the keys that you use
+            to specify the user's location. lat (required): The latitude of the
+            client's location, in degrees. The latitude must be greater than or equal
+            to -90.0 and less than or equal to +90.0. Negative values indicate southern
+            latitudes and positive values indicate northern latitudes. long (required):
+            The longitude of the client's location, in degrees. The longitude must be
+            greater than or equal to -180.0 and less than or equal to +180.0. Negative
+            values indicate western longitudes and positive values indicate eastern
+            longitudes. re (required): The radius, in meters, which specifies the
+            horizontal accuracy of the coordinates. Pass the value returned by the
+            device's location service. Typical values might be 22m for GPS/Wi-Fi, 380m
+            for cell tower triangulation, and 18,000m for reverse IP lookup. ts
+            (optional): The UTC UNIX timestamp of when the client was at the location.
+            (The UNIX timestamp is the number of seconds since January 1, 1970.) head
+            (optional): The client's relative heading or direction of travel. Specify
+            the direction of travel as degrees from 0 through 360, counting clockwise
+            relative to true north. Specify this key only if the sp key is nonzero. sp
+            (optional): The horizontal velocity (speed), in meters per second, that the
+            client device is traveling. alt (optional): The altitude of the client
+            device, in meters. are (optional): The radius, in meters, that specifies
+            the vertical accuracy of the coordinates. Specify this key only if you
+            specify the alt key. Although many of the keys are optional, the more
+            information that you provide, the more accurate the location results are.
+            Although optional, you are encouraged to always specify the user's
+            geographical location. Providing the location is especially important if
+            the client's IP address does not accurately reflect the user's physical
+            location (for example, if the client uses VPN). For optimal results, you
+            should include this header and the X-MSEdge-ClientIP header, but at a
+            minimum, you should include this header.
+            </param>
+            <param name='answerCount'>
+            The number of answers that you want the response to include. The answers
+            that Bing returns are based on ranking. For example, if Bing returns
+            webpages, images, videos, and relatedSearches for a request and you set
+            this parameter to two (2), the response includes webpages and images.If you
+            included the responseFilter query parameter in the same request and set it
+            to webpages and news, the response would include only webpages.
+            </param>
+            <param name='countryCode'>
+            A 2-character country code of the country where the results come from. This
+            API supports only the United States market. If you specify this query
+            parameter, it must be set to us. If you set this parameter, you must also
+            specify the Accept-Language header. Bing uses the first supported language
+            it finds from the languages list, and combine that language with the
+            country code that you specify to determine the market to return results
+            for. If the languages list does not include a supported language, Bing
+            finds the closest language and market that supports the request, or it may
+            use an aggregated or default market for the results instead of a specified
+            one. You should use this query parameter and the Accept-Language query
+            parameter only if you specify multiple languages; otherwise, you should use
+            the mkt and setLang query parameters. This parameter and the mkt query
+            parameter are mutually exclusive—do not specify both.
+            </param>
+            <param name='count'>
+            The number of search results to return in the response. The default is 10
+            and the maximum value is 50. The actual number delivered may be less than
+            requested.Use this parameter along with the offset parameter to page
+            results.For example, if your user interface displays 10 search results per
+            page, set count to 10 and offset to 0 to get the first page of results. For
+            each subsequent page, increment offset by 10 (for example, 0, 10, 20). It
+            is possible for multiple pages to include some overlap in results.
+            </param>
+            <param name='freshness'>
+            Filter search results by the following age values: Day—Return webpages that
+            Bing discovered within the last 24 hours. Week—Return webpages that Bing
+            discovered within the last 7 days. Month—Return webpages that discovered
+            within the last 30 days. This filter applies only to webpage results and
+            not to the other results such as news and images. Possible values include:
+            'Day', 'Week', 'Month'
+            </param>
+            <param name='market'>
+            The market where the results come from. Typically, mkt is the country where
+            the user is making the request from. However, it could be a different
+            country if the user is not located in a country where Bing delivers
+            results. The market must be in the form &lt;language code&gt;-&lt;country
+            code&gt;. For example, en-US. The string is case insensitive. If known, you
+            are encouraged to always specify the market. Specifying the market helps
+            Bing route the request and return an appropriate and optimal response. If
+            you specify a market that is not listed in Market Codes, Bing uses a best
+            fit market code based on an internal mapping that is subject to change.
+            This parameter and the cc query parameter are mutually exclusive—do not
+            specify both.
+            </param>
+            <param name='offset'>
+            The zero-based offset that indicates the number of search results to skip
+            before returning results. The default is 0. The offset should be less than
+            (totalEstimatedMatches - count). Use this parameter along with the count
+            parameter to page results. For example, if your user interface displays 10
+            search results per page, set count to 10 and offset to 0 to get the first
+            page of results. For each subsequent page, increment offset by 10 (for
+            example, 0, 10, 20). it is possible for multiple pages to include some
+            overlap in results.
+            </param>
+            <param name='promote'>
+            A comma-delimited list of answers that you want the response to include
+            regardless of their ranking. For example, if you set answerCount) to two
+            (2) so Bing returns the top two ranked answers, but you also want the
+            response to include news, you'd set promote to news. If the top ranked
+            answers are webpages, images, videos, and relatedSearches, the response
+            includes webpages and images because news is not a ranked answer. But if
+            you set promote to video, Bing would promote the video answer into the
+            response and return webpages, images, and videos. The answers that you want
+            to promote do not count against the answerCount limit. For example, if the
+            ranked answers are news, images, and videos, and you set answerCount to 1
+            and promote to news, the response contains news and images. Or, if the
+            ranked answers are videos, images, and news, the response contains videos
+            and news. Possible values are Computation, Images, News, RelatedSearches,
+            SpellSuggestions, TimeZone, Videos, Webpages. Use only if you specify
+            answerCount.
+            </param>
+            <param name='responseFilter'>
+            A comma-delimited list of answers to include in the response. If you do not
+            specify this parameter, the response includes all search answers for which
+            there's relevant data. Possible filter values are Computation, Images,
+            News, RelatedSearches, SpellSuggestions, TimeZone, Videos, Webpages.
+            Although you may use this filter to get a single answer, you should instead
+            use the answer-specific endpoint in order to get richer results. For
+            example, to receive only images, send the request to one of the Image
+            Search API endpoints. The RelatedSearches and SpellSuggestions answers do
+            not support a separate endpoint like the Image Search API does (only the
+            Web Search API returns them). To include answers that would otherwise be
+            excluded because of ranking, see the promote query parameter.
+            </param>
+            <param name='safeSearch'>
+            A filter used to filter adult content. Off: Return webpages with adult
+            text, images, or videos. Moderate: Return webpages with adult text, but not
+            adult images or videos. Strict: Do not return webpages with adult text,
+            images, or videos. The default is Moderate. If the request comes from a
+            market that Bing's adult policy requires that safeSearch is set to Strict,
+            Bing ignores the safeSearch value and uses Strict. If you use the site:
+            query operator, there is the chance that the response may contain adult
+            content regardless of what the safeSearch query parameter is set to. Use
+            site: only if you are aware of the content on the site and your scenario
+            supports the possibility of adult content. Possible values include: 'Off',
+            'Moderate', 'Strict'
+            </param>
+            <param name='setLang'>
+            The language to use for user interface strings. Specify the language using
+            the ISO 639-1 2-letter language code. For example, the language code for
+            English is EN. The default is EN (English). Although optional, you should
+            always specify the language. Typically, you set setLang to the same
+            language specified by mkt unless the user wants the user interface strings
+            displayed in a different language. This parameter and the Accept-Language
+            header are mutually exclusive; do not specify both. A user interface string
+            is a string that's used as a label in a user interface. There are few user
+            interface strings in the JSON response objects. Also, any links to Bing.com
+            properties in the response objects apply the specified language.
+            </param>
+            <param name='textDecorations'>
+            A Boolean value that determines whether display strings should contain
+            decoration markers such as hit highlighting characters. If true, the
+            strings may include markers. The default is false. To specify whether to
+            use Unicode characters or HTML tags as the markers, see the textFormat
+            query parameter.
+            </param>
+            <param name='textFormat'>
+            The type of markers to use for text decorations (see the textDecorations
+            query parameter). Possible values are Raw—Use Unicode characters to mark
+            content that needs special formatting. The Unicode characters are in the
+            range E000 through E019. For example, Bing uses E000 and E001 to mark the
+            beginning and end of query terms for hit highlighting. HTML—Use HTML tags
+            to mark content that needs special formatting. For example, use &lt;b&gt;
+            tags to highlight query terms in display strings. The default is Raw. For
+            display strings that contain escapable HTML characters such as &lt;, &gt;,
+            and &amp;, if textFormat is set to HTML, Bing escapes the characters as
+            appropriate (for example, &lt; is escaped to &amp;lt;). Possible values
+            include: 'Raw', 'Html'
+            </param>
+            <param name='cancellationToken'>
+            The cancellation token.
+            </param>
+        </member>
+        <member name="T:Microsoft.Azure.CognitiveServices.Search.WebSearch.WebSearchClient">
+            <summary>
+            The Web Search API lets you send a search query to Bing and get back
+            search results that include links to webpages, images, and more.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.CognitiveServices.Search.WebSearch.WebSearchClient.BaseUri">
+            <summary>
+            The base URI of the service.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.CognitiveServices.Search.WebSearch.WebSearchClient.SerializationSettings">
+            <summary>
+            Gets or sets json serialization settings.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.CognitiveServices.Search.WebSearch.WebSearchClient.DeserializationSettings">
+            <summary>
+            Gets or sets json deserialization settings.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.CognitiveServices.Search.WebSearch.WebSearchClient.Endpoint">
+            <summary>
+            Supported Cognitive Services endpoints (protocol and hostname, for example:
+            "https://westus.api.cognitive.microsoft.com",
+            "https://api.cognitive.microsoft.com").
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.CognitiveServices.Search.WebSearch.WebSearchClient.Credentials">
+            <summary>
+            Subscription credentials which uniquely identify client subscription.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.CognitiveServices.Search.WebSearch.WebSearchClient.Web">
+            <summary>
+            Gets the IWeb.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.CognitiveServices.Search.WebSearch.WebSearchClient.#ctor(System.Net.Http.HttpClient,System.Boolean)">
+            <summary>
+            Initializes a new instance of the WebSearchClient class.
+            </summary>
+            <param name='httpClient'>
+            HttpClient to be used
+            </param>
+            <param name='disposeHttpClient'>
+            True: will dispose the provided httpClient on calling WebSearchClient.Dispose(). False: will not dispose provided httpClient</param>
+        </member>
+        <member name="M:Microsoft.Azure.CognitiveServices.Search.WebSearch.WebSearchClient.#ctor(System.Net.Http.DelegatingHandler[])">
+            <summary>
+            Initializes a new instance of the WebSearchClient class.
+            </summary>
+            <param name='handlers'>
+            Optional. The delegating handlers to add to the http client pipeline.
+            </param>
+        </member>
+        <member name="M:Microsoft.Azure.CognitiveServices.Search.WebSearch.WebSearchClient.#ctor(System.Net.Http.HttpClientHandler,System.Net.Http.DelegatingHandler[])">
+            <summary>
+            Initializes a new instance of the WebSearchClient class.
+            </summary>
+            <param name='rootHandler'>
+            Optional. The http client handler used to handle http transport.
+            </param>
+            <param name='handlers'>
+            Optional. The delegating handlers to add to the http client pipeline.
+            </param>
+        </member>
+        <member name="M:Microsoft.Azure.CognitiveServices.Search.WebSearch.WebSearchClient.#ctor(Microsoft.Rest.ServiceClientCredentials,System.Net.Http.DelegatingHandler[])">
+            <summary>
+            Initializes a new instance of the WebSearchClient class.
+            </summary>
+            <param name='credentials'>
+            Required. Subscription credentials which uniquely identify client subscription.
+            </param>
+            <param name='handlers'>
+            Optional. The delegating handlers to add to the http client pipeline.
+            </param>
+            <exception cref="T:System.ArgumentNullException">
+            Thrown when a required parameter is null
+            </exception>
+        </member>
+        <member name="M:Microsoft.Azure.CognitiveServices.Search.WebSearch.WebSearchClient.#ctor(Microsoft.Rest.ServiceClientCredentials,System.Net.Http.HttpClient,System.Boolean)">
+            <summary>
+            Initializes a new instance of the WebSearchClient class.
+            </summary>
+            <param name='credentials'>
+            Required. Subscription credentials which uniquely identify client subscription.
+            </param>
+            <param name='httpClient'>
+            HttpClient to be used
+            </param>
+            <param name='disposeHttpClient'>
+            True: will dispose the provided httpClient on calling WebSearchClient.Dispose(). False: will not dispose provided httpClient</param>
+            <exception cref="T:System.ArgumentNullException">
+            Thrown when a required parameter is null
+            </exception>
+        </member>
+        <member name="M:Microsoft.Azure.CognitiveServices.Search.WebSearch.WebSearchClient.#ctor(Microsoft.Rest.ServiceClientCredentials,System.Net.Http.HttpClientHandler,System.Net.Http.DelegatingHandler[])">
+            <summary>
+            Initializes a new instance of the WebSearchClient class.
+            </summary>
+            <param name='credentials'>
+            Required. Subscription credentials which uniquely identify client subscription.
+            </param>
+            <param name='rootHandler'>
+            Optional. The http client handler used to handle http transport.
+            </param>
+            <param name='handlers'>
+            Optional. The delegating handlers to add to the http client pipeline.
+            </param>
+            <exception cref="T:System.ArgumentNullException">
+            Thrown when a required parameter is null
+            </exception>
+        </member>
+        <member name="M:Microsoft.Azure.CognitiveServices.Search.WebSearch.WebSearchClient.Initialize">
+            <summary>
+            Initializes client properties.
+            </summary>
+        </member>
+    </members>
+</doc>
